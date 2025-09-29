@@ -81,6 +81,10 @@ struct HomeView: View {
                                 speedTestViewModel.cancelTest()
                             }
                             .foregroundColor(.red)
+                            
+                            // Real-time chart during testing
+                            RealTimeChartView(viewModel: speedTestViewModel)
+                                .transition(.opacity)
                         }
                         
                     } else {

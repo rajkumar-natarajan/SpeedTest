@@ -50,6 +50,24 @@ struct SettingsView: View {
                 }
                 
                 // Test settings section
+                Section("Advanced Features") {
+                    NavigationLink(destination: ServerSelectionView()) {
+                        Label("Server Selection", systemImage: "server.rack")
+                    }
+                    
+                    NavigationLink(destination: ScheduledTestsView()) {
+                        Label("Scheduled Tests", systemImage: "clock.badge.plus")
+                    }
+                    
+                    NavigationLink(destination: NetworkDiagnosticsView()) {
+                        Label("Network Diagnostics", systemImage: "network")
+                    }
+                    
+                    NavigationLink(destination: HistoricalChartsView(testHistory: testHistory)) {
+                        Label("Speed History Charts", systemImage: "chart.line.uptrend.xyaxis")
+                    }
+                }
+                
                 Section("Test Settings") {
                     HStack {
                         Image(systemName: "location.fill")
