@@ -9,6 +9,7 @@
 import Foundation
 import Network
 import SystemConfiguration
+import UIKit
 import os.log
 
 /// Service for scanning and discovering devices on the local network
@@ -149,23 +150,69 @@ class NetworkScannerService: ObservableObject {
         
         guard responseTime != nil else { return nil }
         
-        // Try to resolve hostname
-        let hostname = await resolveHostname(for: ipAddress)
-        
-        // Estimate device type and manufacturer
-        let deviceType = estimateDeviceType(ip: ipAddress, hostname: hostname, isCurrentDevice: isCurrentDevice)
-        let manufacturer = estimateManufacturer(hostname: hostname, deviceType: deviceType)
+        // Try multiple methods to get device name
+        let deviceInfo = await getDeviceInfo(for: ipAddress, isCurrentDevice: isCurrentDevice)
         
         return ConnectedDevice(
             ipAddress: ipAddress,
             macAddress: nil, // MAC address requires root privileges
-            hostname: hostname,
-            deviceType: deviceType,
-            manufacturer: manufacturer,
+            hostname: deviceInfo.name,
+            deviceType: deviceInfo.type,
+            manufacturer: deviceInfo.manufacturer,
             isCurrentDevice: isCurrentDevice,
             lastSeen: Date(),
             responseTime: responseTime
         )
+    }
+    
+    private func getDeviceInfo(for ipAddress: String, isCurrentDevice: Bool) async -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        if isCurrentDevice {
+            return (
+                name: UIDevice.current.name,
+                type: .smartphone,
+                manufacturer: "Apple"
+            )
+        }
+        
+        // Try multiple resolution methods
+        var deviceName: String?
+        var detectedType: ConnectedDevice.DeviceType = .unknown
+        var manufacturer: String?
+        
+        // Method 1: Try hostname resolution
+        deviceName = await resolveHostname(for: ipAddress)
+        
+        // Method 2: Try Bonjour/mDNS resolution if hostname failed
+        if deviceName == nil {
+            deviceName = await resolveBonjourName(for: ipAddress)
+        }
+        
+        // Method 3: Try NETBIOS name resolution if others failed
+        if deviceName == nil {
+            deviceName = await resolveNetBIOSName(for: ipAddress)
+        }
+        
+        // Method 4: Try to get device info from HTTP headers/server responses
+        if deviceName == nil {
+            let httpInfo = await getDeviceInfoFromHTTP(for: ipAddress)
+            deviceName = httpInfo.name
+            if detectedType == .unknown && httpInfo.type != .unknown {
+                detectedType = httpInfo.type
+            }
+        }
+        
+        // Estimate device type and manufacturer from the resolved name
+        if let name = deviceName {
+            let typeAndManufacturer = estimateDeviceTypeAndManufacturer(from: name, ip: ipAddress)
+            detectedType = typeAndManufacturer.type
+            manufacturer = typeAndManufacturer.manufacturer
+        } else {
+            // Generate a friendly name based on IP and type
+            detectedType = estimateDeviceType(ip: ipAddress, hostname: nil, isCurrentDevice: false)
+            deviceName = generateFriendlyName(for: ipAddress, type: detectedType)
+        }
+        
+        return (name: deviceName, type: detectedType, manufacturer: manufacturer)
     }
     
     private func pingDevice(at ipAddress: String) async -> TimeInterval? {
@@ -251,67 +298,276 @@ class NetworkScannerService: ObservableObject {
         }
     }
     
-    private func estimateDeviceType(ip: String, hostname: String?, isCurrentDevice: Bool) -> ConnectedDevice.DeviceType {
-        if isCurrentDevice {
-            return .smartphone // Assuming iOS device
-        }
-        
-        guard let hostname = hostname?.lowercased() else {
-            // Try to guess from IP patterns
-            if ip.contains(".1") || ip.contains(".254") {
-                return .router
+    private func resolveBonjourName(for ipAddress: String) async -> String? {
+        // Try to resolve using Bonjour/mDNS
+        return await withCheckedContinuation { continuation in
+            let queue = DispatchQueue.global()
+            queue.async {
+                // Simplified Bonjour resolution - in a real implementation,
+                // you might use Network.framework or DNSServiceRef
+                continuation.resume(returning: nil)
             }
-            return .unknown
         }
+    }
+    
+    private func resolveNetBIOSName(for ipAddress: String) async -> String? {
+        // Try NetBIOS name resolution (for Windows devices)
+        return await withCheckedContinuation { continuation in
+            let queue = DispatchQueue.global()
+            queue.async {
+                // This would require more complex implementation
+                // For now, return nil as NetBIOS is less common on modern networks
+                continuation.resume(returning: nil)
+            }
+        }
+    }
+    
+    private func getDeviceInfoFromHTTP(for ipAddress: String) async -> (name: String?, type: ConnectedDevice.DeviceType) {
+        // Try to get device information from HTTP responses
+        return await withCheckedContinuation { continuation in
+            guard let url = URL(string: "http://\(ipAddress)") else {
+                continuation.resume(returning: (nil, .unknown))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.timeoutInterval = 2.0
+            request.setValue("SpeedTestPro/1.0", forHTTPHeaderField: "User-Agent")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                var deviceName: String?
+                var deviceType: ConnectedDevice.DeviceType = .unknown
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    // Check for device-specific headers
+                    if let server = httpResponse.allHeaderFields["Server"] as? String {
+                        deviceName = self.extractDeviceNameFromServer(server)
+                        deviceType = self.extractDeviceTypeFromServer(server)
+                    }
+                    
+                    // Check for other identifying headers
+                    if deviceName == nil {
+                        for (key, value) in httpResponse.allHeaderFields {
+                            if let keyStr = key as? String,
+                               let valueStr = value as? String {
+                                if keyStr.lowercased().contains("device") ||
+                                   keyStr.lowercased().contains("model") ||
+                                   keyStr.lowercased().contains("product") {
+                                    deviceName = valueStr
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Try to extract device info from HTML content
+                if deviceName == nil, let data = data, let html = String(data: data, encoding: .utf8) {
+                    deviceName = self.extractDeviceNameFromHTML(html)
+                    if deviceType == .unknown {
+                        deviceType = self.extractDeviceTypeFromHTML(html)
+                    }
+                }
+                
+                continuation.resume(returning: (deviceName, deviceType))
+            }
+            
+            task.resume()
+            
+            // Timeout
+            DispatchQueue.global().asyncAfter(deadline: .now() + 2.5) {
+                task.cancel()
+                continuation.resume(returning: (nil, .unknown))
+            }
+        }
+    }
+    
+    private func estimateDeviceTypeAndManufacturer(from name: String, ip: String) -> (type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        let lowercaseName = name.lowercased()
         
         // Device type estimation based on hostname patterns
-        if hostname.contains("router") || hostname.contains("gateway") || hostname.contains("modem") {
+        var deviceType: ConnectedDevice.DeviceType = .unknown
+        var manufacturer: String?
+        
+        if lowercaseName.contains("router") || lowercaseName.contains("gateway") || lowercaseName.contains("modem") {
+            deviceType = .router
+        } else if lowercaseName.contains("iphone") {
+            deviceType = .smartphone
+            manufacturer = "Apple"
+        } else if lowercaseName.contains("android") || lowercaseName.contains("mobile") {
+            deviceType = .smartphone
+        } else if lowercaseName.contains("ipad") {
+            deviceType = .tablet
+            manufacturer = "Apple"
+        } else if lowercaseName.contains("tablet") {
+            deviceType = .tablet
+        } else if lowercaseName.contains("macbook") {
+            deviceType = .laptop
+            manufacturer = "Apple"
+        } else if lowercaseName.contains("laptop") {
+            deviceType = .laptop
+        } else if lowercaseName.contains("imac") {
+            deviceType = .desktop
+            manufacturer = "Apple"
+        } else if lowercaseName.contains("desktop") || lowercaseName.contains("pc") {
+            deviceType = .desktop
+        } else if lowercaseName.contains("tv") || lowercaseName.contains("roku") || lowercaseName.contains("chromecast") {
+            deviceType = .smartTV
+        } else if lowercaseName.contains("xbox") {
+            deviceType = .gameConsole
+            manufacturer = "Microsoft"
+        } else if lowercaseName.contains("playstation") {
+            deviceType = .gameConsole
+            manufacturer = "Sony"
+        } else if lowercaseName.contains("nintendo") {
+            deviceType = .gameConsole
+            manufacturer = "Nintendo"
+        } else if lowercaseName.contains("printer") || lowercaseName.contains("canon") || lowercaseName.contains("hp") || lowercaseName.contains("epson") {
+            deviceType = .printer
+        } else if lowercaseName.contains("echo") || lowercaseName.contains("homepod") || lowercaseName.contains("speaker") {
+            deviceType = .speaker
+        } else if lowercaseName.contains("thermostat") || lowercaseName.contains("camera") || lowercaseName.contains("sensor") {
+            deviceType = .iotDevice
+        }
+        
+        // Try to extract manufacturer if not already set
+        if manufacturer == nil {
+            manufacturer = extractManufacturer(from: lowercaseName)
+        }
+        
+        // If still unknown, try to guess from IP patterns
+        if deviceType == .unknown {
+            deviceType = estimateDeviceType(ip: ip, hostname: name, isCurrentDevice: false)
+        }
+        
+        return (type: deviceType, manufacturer: manufacturer)
+    }
+    
+    private func extractManufacturer(from name: String) -> String? {
+        let lowercaseName = name.lowercased()
+        
+        if lowercaseName.contains("apple") || lowercaseName.contains("iphone") || lowercaseName.contains("ipad") || lowercaseName.contains("macbook") || lowercaseName.contains("imac") {
+            return "Apple"
+        } else if lowercaseName.contains("samsung") {
+            return "Samsung"
+        } else if lowercaseName.contains("google") || lowercaseName.contains("chromecast") {
+            return "Google"
+        } else if lowercaseName.contains("amazon") || lowercaseName.contains("echo") {
+            return "Amazon"
+        } else if lowercaseName.contains("microsoft") || lowercaseName.contains("xbox") {
+            return "Microsoft"
+        } else if lowercaseName.contains("sony") || lowercaseName.contains("playstation") {
+            return "Sony"
+        } else if lowercaseName.contains("nintendo") {
+            return "Nintendo"
+        } else if lowercaseName.contains("roku") {
+            return "Roku"
+        } else if lowercaseName.contains("hp") {
+            return "HP"
+        } else if lowercaseName.contains("canon") {
+            return "Canon"
+        } else if lowercaseName.contains("epson") {
+            return "Epson"
+        }
+        
+        return nil
+    }
+    
+    private func generateFriendlyName(for ipAddress: String, type: ConnectedDevice.DeviceType) -> String {
+        let lastOctet = ipAddress.components(separatedBy: ".").last ?? "X"
+        
+        switch type {
+        case .router:
+            return "Router (.1)" // Usually the router
+        case .smartphone:
+            return "Phone (.x\(lastOctet))"
+        case .tablet:
+            return "Tablet (.x\(lastOctet))"
+        case .laptop:
+            return "Laptop (.x\(lastOctet))"
+        case .desktop:
+            return "Computer (.x\(lastOctet))"
+        case .smartTV:
+            return "Smart TV (.x\(lastOctet))"
+        case .gameConsole:
+            return "Game Console (.x\(lastOctet))"
+        case .iotDevice:
+            return "Smart Device (.x\(lastOctet))"
+        case .printer:
+            return "Printer (.x\(lastOctet))"
+        case .speaker:
+            return "Speaker (.x\(lastOctet))"
+        case .unknown:
+            return "Device (.x\(lastOctet))"
+        }
+    }
+    
+    private func extractDeviceNameFromServer(_ server: String) -> String? {
+        let lowercaseServer = server.lowercased()
+        
+        // Common device identifiers in server headers
+        if lowercaseServer.contains("router") {
+            return "Router"
+        } else if lowercaseServer.contains("printer") {
+            return "Network Printer"
+        } else if lowercaseServer.contains("camera") {
+            return "IP Camera"
+        } else if lowercaseServer.contains("nas") {
+            return "NAS Device"
+        }
+        
+        return nil
+    }
+    
+    private func extractDeviceTypeFromServer(_ server: String) -> ConnectedDevice.DeviceType {
+        let lowercaseServer = server.lowercased()
+        
+        if lowercaseServer.contains("router") {
             return .router
-        } else if hostname.contains("iphone") || hostname.contains("android") || hostname.contains("mobile") {
-            return .smartphone
-        } else if hostname.contains("ipad") || hostname.contains("tablet") {
-            return .tablet
-        } else if hostname.contains("macbook") || hostname.contains("laptop") {
-            return .laptop
-        } else if hostname.contains("imac") || hostname.contains("desktop") || hostname.contains("pc") {
-            return .desktop
-        } else if hostname.contains("tv") || hostname.contains("roku") || hostname.contains("chromecast") {
-            return .smartTV
-        } else if hostname.contains("xbox") || hostname.contains("playstation") || hostname.contains("nintendo") {
-            return .gameConsole
-        } else if hostname.contains("printer") || hostname.contains("canon") || hostname.contains("hp") || hostname.contains("epson") {
+        } else if lowercaseServer.contains("printer") {
             return .printer
-        } else if hostname.contains("echo") || hostname.contains("homepod") || hostname.contains("speaker") {
-            return .speaker
-        } else if hostname.contains("thermostat") || hostname.contains("camera") || hostname.contains("sensor") {
+        } else if lowercaseServer.contains("camera") {
+            return .iotDevice
+        } else if lowercaseServer.contains("nas") {
             return .iotDevice
         }
         
         return .unknown
     }
     
-    private func estimateManufacturer(hostname: String?, deviceType: ConnectedDevice.DeviceType) -> String? {
-        guard let hostname = hostname?.lowercased() else { return nil }
+    private func extractDeviceNameFromHTML(_ html: String) -> String? {
+        let lowercaseHTML = html.lowercased()
         
-        if hostname.contains("apple") || hostname.contains("iphone") || hostname.contains("ipad") || hostname.contains("macbook") || hostname.contains("imac") {
-            return "Apple"
-        } else if hostname.contains("samsung") {
-            return "Samsung"
-        } else if hostname.contains("google") || hostname.contains("chromecast") {
-            return "Google"
-        } else if hostname.contains("amazon") || hostname.contains("echo") {
-            return "Amazon"
-        } else if hostname.contains("microsoft") || hostname.contains("xbox") {
-            return "Microsoft"
-        } else if hostname.contains("sony") || hostname.contains("playstation") {
-            return "Sony"
-        } else if hostname.contains("nintendo") {
-            return "Nintendo"
-        } else if hostname.contains("roku") {
-            return "Roku"
+        // Look for common device identification patterns in HTML
+        if lowercaseHTML.contains("<title>") {
+            let titleRange = lowercaseHTML.range(of: "<title>")
+            let endTitleRange = lowercaseHTML.range(of: "</title>")
+            
+            if let start = titleRange?.upperBound, let end = endTitleRange?.lowerBound {
+                let title = String(html[start..<end])
+                if !title.isEmpty && title.count < 50 { // Reasonable title length
+                    return title
+                }
+            }
         }
         
         return nil
+    }
+    
+    private func extractDeviceTypeFromHTML(_ html: String) -> ConnectedDevice.DeviceType {
+        let lowercaseHTML = html.lowercased()
+        
+        if lowercaseHTML.contains("router") || lowercaseHTML.contains("gateway") {
+            return .router
+        } else if lowercaseHTML.contains("printer") {
+            return .printer
+        } else if lowercaseHTML.contains("camera") {
+            return .iotDevice
+        } else if lowercaseHTML.contains("thermostat") {
+            return .iotDevice
+        }
+        
+        return .unknown
     }
     
     // MARK: - Network Utility Methods
@@ -425,6 +681,28 @@ extension Array {
         return stride(from: 0, to: count, by: size).map {
             Array(self[$0..<Swift.min($0 + size, count)])
         }
+    }
+}
+
+// MARK: - Additional Helper Methods
+
+extension NetworkScannerService {
+    private func estimateDeviceType(ip: String, hostname: String?, isCurrentDevice: Bool) -> ConnectedDevice.DeviceType {
+        if isCurrentDevice {
+            return .smartphone // Assuming iOS device
+        }
+        
+        // Try to guess from IP patterns if no hostname
+        if hostname == nil {
+            if ip.hasSuffix(".1") || ip.hasSuffix(".254") {
+                return .router
+            }
+            return .unknown
+        }
+        
+        // If we have a hostname, use the full analysis
+        let result = estimateDeviceTypeAndManufacturer(from: hostname!, ip: ip)
+        return result.type
     }
 }
 

@@ -259,7 +259,7 @@ struct DeviceRowView: View {
                 // Device info
                 VStack(alignment: .leading, spacing: 2) {
                     HStack {
-                        Text(device.hostname ?? device.ipAddress)
+                        Text(device.hostname ?? "Unknown Device")
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
