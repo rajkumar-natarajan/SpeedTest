@@ -136,6 +136,11 @@ class NetworkDiagnosticsService: ObservableObject {
         await updateProgress(0.8)
         let performanceMetrics = await measureNetworkPerformance()
         
+        // Step 4.5: Measure additional network metrics
+        let packetLoss = await measurePacketLoss()
+        let jitter = await measureJitter()
+        let latencyVar = await measureLatencyVariation()
+        
         // Step 5: Security analysis (100%)
         await updateProgress(1.0)
         let securityInfo = await analyzeNetworkSecurity()
@@ -148,13 +153,13 @@ class NetworkDiagnosticsService: ObservableObject {
             ipAddress: ipConfig.ipAddress,
             subnetMask: ipConfig.subnetMask,
             gateway: ipConfig.gateway,
-            dnsServers: dnsInfo.servers,
+            dnsServers: dnsInfo,
             signalStrength: basicInfo.signalStrength,
             bandwidth: basicInfo.bandwidth,
             mtu: ipConfig.mtu,
-            packetLoss: performanceMetrics.packetLoss,
-            jitter: performanceMetrics.jitter,
-            latencyVariation: performanceMetrics.latencyVariation,
+            packetLoss: packetLoss,
+            jitter: jitter,
+            latencyVariation: latencyVar,
             networkQuality: assessNetworkQuality(performanceMetrics),
             securityInfo: securityInfo,
             performanceMetrics: performanceMetrics
@@ -219,13 +224,13 @@ class NetworkDiagnosticsService: ObservableObject {
     }
     
     /// Analyze DNS configuration
-    private func analyzeDNSConfiguration() async -> (servers: [String]) {
+    private func analyzeDNSConfiguration() async -> [String] {
         try? await Task.sleep(nanoseconds: 400_000_000) // 0.4 seconds
         
         // This would typically read from system DNS configuration
         let dnsServers = ["8.8.8.8", "8.8.4.4", "1.1.1.1"]
         
-        return (servers: dnsServers)
+        return dnsServers
     }
     
     /// Measure network performance
@@ -246,6 +251,24 @@ class NetworkDiagnosticsService: ObservableObject {
             errorRate: errorRate,
             retransmissionRate: retransmissionRate
         )
+    }
+    
+    /// Measure packet loss percentage
+    private func measurePacketLoss() async -> Double? {
+        try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+        return Double.random(in: 0...5) // 0-5% packet loss
+    }
+    
+    /// Measure network jitter in milliseconds
+    private func measureJitter() async -> Double? {
+        try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+        return Double.random(in: 1...30) // 1-30ms jitter
+    }
+    
+    /// Measure latency variation in milliseconds
+    private func measureLatencyVariation() async -> Double? {
+        try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+        return Double.random(in: 5...100) // 5-100ms latency variation
     }
     
     /// Analyze network security

@@ -11,7 +11,7 @@ import Network
 import Combine
 
 /// Test phases during speed test execution
-enum TestPhase: String, CaseIterable {
+enum TestPhase: String, CaseIterable, Codable {
     case idle = "Ready"
     case connecting = "Connecting"
     case ping = "Testing Ping"

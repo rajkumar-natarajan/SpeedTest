@@ -158,7 +158,7 @@ struct HistoricalChartsView: View {
     
     private var filteredResults: [ChartDataPoint] {
         let cutoffDate = Calendar.current.date(byAdding: .day, value: -selectedTimeRange.days, to: Date()) ?? Date()
-        return testHistory.allResults
+        return testHistory.results
             .filter { $0.timestamp >= cutoffDate }
             .map { ChartDataPoint(from: $0) }
             .sorted { $0.date < $1.date }

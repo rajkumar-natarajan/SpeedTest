@@ -7,102 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1234567890ABCD			1234567890ABCE17 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1234567890ABCDE2 /* ContentView.swift */,
-				1234567890ABCDEB /* HomeView.swift */,
-				1234567890ABCDED /* TestResultsView.swift */,
-				1234567890ABCDEF /* HistoryView.swift */,
-				1234567890ABCDF1 /* SettingsView.swift */,
-				1234567890ABCE01 /* ServerSelectionView.swift */,
-				1234567890ABCE05 /* RealTimeChartView.swift */,
-				1234567890ABCE07 /* HistoricalChartsView.swift */,
-				1234567890ABCE0D /* ScheduledTestsView.swift */,
-				1234567890ABCE11 /* NetworkDiagnosticsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};BCDF9 /		1234567890ABCE15 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				1234567890ABCDF5 /* SpeedTestManager.swift */,
-				1234567890ABCDFF /* ServerSelectionService.swift */,
-				1234567890ABCE09 /* NotificationService.swift */,
-				1234567890ABCE0F /* NetworkDiagnosticsService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		}; */ = {
-			isa = PBXGroup;
-			children = (
-				1234567890ABCDF9 /* TestHistory.swift */,
-				1234567890ABCDFB /* AppSettings.swift */,
-				1234567890ABCDFD /* ServerModel.swift */,
-				1234567890ABCE03 /* ChartData.swift */,
-				1234567890ABCE0B /* ScheduledTest.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};edTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE0 /* SpeedTestProApp.swift */; };
-		1234567890ABCDE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE2 /* ContentView.swift */; };
-		1234567890ABCDE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE4 /* Assets.xcassets */; };
-		1234567890ABCDE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE7 /* Preview Assets.xcassets */; };
-		1234567890ABCDEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE9 /* LaunchScreen.storyboard */; };
-		1234567890ABCDEC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEB /* HomeView.swift */; };
-		1234567890ABCDEE /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDED /* TestResultsView.swift */; };
-		1234567890ABCDF0 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEF /* HistoryView.swift */; };
-		1234567890ABCDF2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF1 /* SettingsView.swift */; };
-		1234567890ABCDF4 /* SpeedTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF3 /* SpeedTestViewModel.swift */; };
-		1234567890ABCDF6 /* SpeedTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF5 /* SpeedTestManager.swift */; };
-		1234567890ABCDF8 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF7 /* NetworkUtils.swift */; };
-		1234567890ABCDFA /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF9 /* TestHistory.swift */; };
-		1234567890ABCDFC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFB /* AppSettings.swift */; };
-		1234567890ABCDFE /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFD /* ServerModel.swift */; };
-		1234567890ABCE00 /* ServerSelectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFF /* ServerSelectionService.swift */; };
-		1234567890ABCE02 /* ServerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE01 /* ServerSelectionView.swift */; };
-		1234567890ABCE04 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE03 /* ChartData.swift */; };
-		1234567890ABCE06 /* RealTimeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE05 /* RealTimeChartView.swift */; };
-		1234567890ABCE08 /* HistoricalChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE07 /* HistoricalChartsView.swift */; };
-		1234567890ABCE0A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE09 /* NotificationService.swift */; };
-		1234567890ABCE0C /* ScheduledTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0B /* ScheduledTest.swift */; };
-		1234567890ABCE0E /* ScheduledTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0D /* ScheduledTestsView.swift */; };
-		1234567890ABCE10 /* NetworkDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0F /* NetworkDiagnosticsService.swift */; };
-		1234567890ABCE12 /* NetworkDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE11 /* NetworkDiagnosticsView.swift */; };
+		1A001001280ABC1200000001 /* SpeedTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001000280ABC1200000001 /* SpeedTestProApp.swift */; };
+		1A001003280ABC1200000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001002280ABC1200000001 /* ContentView.swift */; };
+		1A001005280ABC1300000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A001004280ABC1300000001 /* Assets.xcassets */; };
+		1A001008280ABC1300000001 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A001007280ABC1300000001 /* Preview Assets.xcassets */; };
+		1A001010280ABC2000000001 /* SpeedTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00100F280ABC2000000001 /* SpeedTestManager.swift */; };
+		1A001012280ABC3000000001 /* SpeedTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001011280ABC3000000001 /* SpeedTestViewModel.swift */; };
+		1A001014280ABC4000000001 /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001013280ABC4000000001 /* TestHistory.swift */; };
+		1A001016280ABC5000000001 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001015280ABC5000000001 /* HomeView.swift */; };
+		1A001018280ABC6000000001 /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001017280ABC6000000001 /* TestResultsView.swift */; };
+		1A00101A280ABC7000000001 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001019280ABC7000000001 /* HistoryView.swift */; };
+		1A00101C280ABC8000000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00101B280ABC8000000001 /* SettingsView.swift */; };
+		1A00101E280ABC9000000001 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00101D280ABC9000000001 /* AppSettings.swift */; };
+		1A001020280ABCA000000001 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00101F280ABCA000000001 /* NetworkUtils.swift */; };
+		1A001022280ABCB000000001 /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001021280ABCB000000001 /* ServerModel.swift */; };
+		1A001024280ABCC000000001 /* ServerSelectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001023280ABCC000000001 /* ServerSelectionService.swift */; };
+		1A001026280ABCD000000001 /* ServerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001025280ABCD000000001 /* ServerSelectionView.swift */; };
+		1A001028280ABCE000000001 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001027280ABCE000000001 /* ChartData.swift */; };
+		1A00102A280ABCF000000001 /* RealTimeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001029280ABCF000000001 /* RealTimeChartView.swift */; };
+		1A00102C280ABD0000000001 /* HistoricalChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00102B280ABD0000000001 /* HistoricalChartsView.swift */; };
+		1A00102E280ABD1000000001 /* ScheduledTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00102D280ABD1000000001 /* ScheduledTest.swift */; };
+		1A001030280ABD2000000001 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00102F280ABD2000000001 /* NotificationService.swift */; };
+		1A001032280ABD3000000001 /* ScheduledTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001031280ABD3000000001 /* ScheduledTestsView.swift */; };
+		1A001034280ABD4000000001 /* NetworkDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001033280ABD4000000001 /* NetworkDiagnosticsService.swift */; };
+		1A001036280ABD5000000001 /* NetworkDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001035280ABD5000000001 /* NetworkDiagnosticsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1234567890ABCDDD /* SpeedTestPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTestPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1234567890ABCDE0 /* SpeedTestProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProApp.swift; sourceTree = "<group>"; };
-		1234567890ABCDE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		1234567890ABCDE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1234567890ABCDE7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1234567890ABCDE9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1234567890ABCDEB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		1234567890ABCDED /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
-		1234567890ABCDEF /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		1234567890ABCDF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		1234567890ABCDF3 /* SpeedTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewModel.swift; sourceTree = "<group>"; };
-		1234567890ABCDF5 /* SpeedTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestManager.swift; sourceTree = "<group>"; };
-		1234567890ABCDF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
-		1234567890ABCDF9 /* TestHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
-		1234567890ABCDFB /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		1234567890ABCDFD /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
-		1234567890ABCDFF /* ServerSelectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionService.swift; sourceTree = "<group>"; };
-		1234567890ABCE01 /* ServerSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionView.swift; sourceTree = "<group>"; };
-		1234567890ABCE03 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
-		1234567890ABCE05 /* RealTimeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeChartView.swift; sourceTree = "<group>"; };
-		1234567890ABCE07 /* HistoricalChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalChartsView.swift; sourceTree = "<group>"; };
-		1234567890ABCE09 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		1234567890ABCE0B /* ScheduledTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTest.swift; sourceTree = "<group>"; };
-		1234567890ABCE0D /* ScheduledTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTestsView.swift; sourceTree = "<group>"; };
-		1234567890ABCE0F /* NetworkDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsService.swift; sourceTree = "<group>"; };
-		1234567890ABCE11 /* NetworkDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsView.swift; sourceTree = "<group>"; };
-		1234567890ABCE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A000FFD280ABC1200000001 /* SpeedTestPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTestPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A001000280ABC1200000001 /* SpeedTestProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProApp.swift; sourceTree = "<group>"; };
+		1A001002280ABC1200000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1A001004280ABC1300000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A001007280ABC1300000001 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1A001009280ABC1300000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A00100F280ABC2000000001 /* SpeedTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestManager.swift; sourceTree = "<group>"; };
+		1A001011280ABC3000000001 /* SpeedTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewModel.swift; sourceTree = "<group>"; };
+		1A001013280ABC4000000001 /* TestHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
+		1A001015280ABC5000000001 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1A001017280ABC6000000001 /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
+		1A001019280ABC7000000001 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		1A00101B280ABC8000000001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1A00101D280ABC9000000001 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		1A00101F280ABCA000000001 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
+		1A001021280ABCB000000001 /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
+		1A001023280ABCC000000001 /* ServerSelectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionService.swift; sourceTree = "<group>"; };
+		1A001025280ABCD000000001 /* ServerSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionView.swift; sourceTree = "<group>"; };
+		1A001027280ABCE000000001 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		1A001029280ABCF000000001 /* RealTimeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeChartView.swift; sourceTree = "<group>"; };
+		1A00102B280ABD0000000001 /* HistoricalChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalChartsView.swift; sourceTree = "<group>"; };
+		1A00102D280ABD1000000001 /* ScheduledTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTest.swift; sourceTree = "<group>"; };
+		1A00102F280ABD2000000001 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1A001031280ABD3000000001 /* ScheduledTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTestsView.swift; sourceTree = "<group>"; };
+		1A001033280ABD4000000001 /* NetworkDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsService.swift; sourceTree = "<group>"; };
+		1A001035280ABD5000000001 /* NetworkDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1234567890ABCDDA /* Frameworks */ = {
+		1A000FFA280ABC1200000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -112,88 +73,98 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1234567890ABCDD4 = {
+		1A000FF4280ABC1200000001 = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDDF /* SpeedTestPro */,
-				1234567890ABCDDE /* Products */,
+				1A000FFF280ABC1200000001 /* SpeedTestPro */,
+				1A000FFE280ABC1200000001 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1234567890ABCDDE /* Products */ = {
+		1A000FFE280ABC1200000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDDD /* SpeedTestPro.app */,
+				1A000FFD280ABC1200000001 /* SpeedTestPro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1234567890ABCDDF /* SpeedTestPro */ = {
+		1A000FFF280ABC1200000001 /* SpeedTestPro */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCE00 /* Views */,
-				1234567890ABCE01 /* ViewModels */,
-				1234567890ABCE02 /* Models */,
-				1234567890ABCE03 /* Services */,
-				1234567890ABCE04 /* Utils */,
-				1234567890ABCDE0 /* SpeedTestProApp.swift */,
-				1234567890ABCDE4 /* Assets.xcassets */,
-				1234567890ABCDE9 /* LaunchScreen.storyboard */,
-				1234567890ABCDFD /* Info.plist */,
-				1234567890ABCDE6 /* Preview Content */,
+				1A001000280ABC1200000001 /* SpeedTestProApp.swift */,
+				1A001037280ABD6000000001 /* Views */,
+				1A001038280ABD7000000001 /* ViewModels */,
+				1A001039280ABD8000000001 /* Models */,
+				1A00103A280ABD9000000001 /* Services */,
+				1A00103B280ABDA000000001 /* Utils */,
+				1A001004280ABC1300000001 /* Assets.xcassets */,
+				1A001009280ABC1300000001 /* Info.plist */,
+				1A001006280ABC1300000001 /* Preview Content */,
 			);
 			path = SpeedTestPro;
 			sourceTree = "<group>";
 		};
-		1234567890ABCDE6 /* Preview Content */ = {
+		1A001006280ABC1300000001 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDE7 /* Preview Assets.xcassets */,
+				1A001007280ABC1300000001 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		1234567890ABCE00 /* Views */ = {
+		1A001037280ABD6000000001 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDE2 /* ContentView.swift */,
-				1234567890ABCDEB /* HomeView.swift */,
-				1234567890ABCDED /* TestResultsView.swift */,
-				1234567890ABCDEF /* HistoryView.swift */,
-				1234567890ABCDF1 /* SettingsView.swift */,
+				1A001002280ABC1200000001 /* ContentView.swift */,
+				1A001015280ABC5000000001 /* HomeView.swift */,
+				1A001017280ABC6000000001 /* TestResultsView.swift */,
+				1A001019280ABC7000000001 /* HistoryView.swift */,
+				1A00101B280ABC8000000001 /* SettingsView.swift */,
+				1A001025280ABCD000000001 /* ServerSelectionView.swift */,
+				1A001029280ABCF000000001 /* RealTimeChartView.swift */,
+				1A00102B280ABD0000000001 /* HistoricalChartsView.swift */,
+				1A001031280ABD3000000001 /* ScheduledTestsView.swift */,
+				1A001035280ABD5000000001 /* NetworkDiagnosticsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		1234567890ABCE01 /* ViewModels */ = {
+		1A001038280ABD7000000001 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDF3 /* SpeedTestViewModel.swift */,
+				1A001011280ABC3000000001 /* SpeedTestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		1234567890ABCE02 /* Models */ = {
+		1A001039280ABD8000000001 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDF9 /* TestHistory.swift */,
-				1234567890ABCDFB /* AppSettings.swift */,
+				1A001013280ABC4000000001 /* TestHistory.swift */,
+				1A00101D280ABC9000000001 /* AppSettings.swift */,
+				1A001021280ABCB000000001 /* ServerModel.swift */,
+				1A001027280ABCE000000001 /* ChartData.swift */,
+				1A00102D280ABD1000000001 /* ScheduledTest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		1234567890ABCE03 /* Services */ = {
+		1A00103A280ABD9000000001 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDF5 /* SpeedTestManager.swift */,
+				1A00100F280ABC2000000001 /* SpeedTestManager.swift */,
+				1A001023280ABCC000000001 /* ServerSelectionService.swift */,
+				1A00102F280ABD2000000001 /* NotificationService.swift */,
+				1A001033280ABD4000000001 /* NetworkDiagnosticsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		1234567890ABCE04 /* Utils */ = {
+		1A00103B280ABDA000000001 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1234567890ABCDF7 /* NetworkUtils.swift */,
+				1A00101F280ABCA000000001 /* NetworkUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -201,13 +172,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1234567890ABCDDC /* SpeedTestPro */ = {
+		1A000FFC280ABC1200000001 /* SpeedTestPro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1234567890ABCE05 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */;
+			buildConfigurationList = 1A00100C280ABC1300000001 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */;
 			buildPhases = (
-				1234567890ABCDD9 /* Sources */,
-				1234567890ABCDDA /* Frameworks */,
-				1234567890ABCDDB /* Resources */,
+				1A000FF9280ABC1200000001 /* Sources */,
+				1A000FFA280ABC1200000001 /* Frameworks */,
+				1A000FFB280ABC1200000001 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -215,25 +186,25 @@
 			);
 			name = SpeedTestPro;
 			productName = SpeedTestPro;
-			productReference = 1234567890ABCDDD /* SpeedTestPro.app */;
+			productReference = 1A000FFD280ABC1200000001 /* SpeedTestPro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1234567890ABCDD5 /* Project object */ = {
+		1A000FF5280ABC1200000001 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					1234567890ABCDDC = {
+					1A000FFC280ABC1200000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = 1234567890ABCDD8 /* Build configuration list for PBXProject "SpeedTestPro" */;
+			buildConfigurationList = 1A000FF8280ABC1200000001 /* Build configuration list for PBXProject "SpeedTestPro" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -241,52 +212,62 @@
 				en,
 				Base,
 			);
-			mainGroup = 1234567890ABCDD4;
-			productRefGroup = 1234567890ABCDDE /* Products */;
+			mainGroup = 1A000FF4280ABC1200000001;
+			productRefGroup = 1A000FFE280ABC1200000001 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1234567890ABCDDC /* SpeedTestPro */,
+				1A000FFC280ABC1200000001 /* SpeedTestPro */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1234567890ABCDDB /* Resources */ = {
+		1A000FFB280ABC1200000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1234567890ABCDE8 /* Preview Assets.xcassets in Resources */,
-				1234567890ABCDE5 /* Assets.xcassets in Resources */,
-				1234567890ABCDEA /* LaunchScreen.storyboard in Resources */,
+				1A001008280ABC1300000001 /* Preview Assets.xcassets in Resources */,
+				1A001005280ABC1300000001 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1234567890ABCDD9 /* Sources */ = {
+		1A000FF9280ABC1200000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1234567890ABCDE3 /* ContentView.swift in Sources */,
-				1234567890ABCDF4 /* SpeedTestViewModel.swift in Sources */,
-				1234567890ABCDF6 /* SpeedTestManager.swift in Sources */,
-				1234567890ABCDF8 /* NetworkUtils.swift in Sources */,
-				1234567890ABCDEC /* HomeView.swift in Sources */,
-				1234567890ABCDEE /* TestResultsView.swift in Sources */,
-				1234567890ABCDF0 /* HistoryView.swift in Sources */,
-				1234567890ABCDF2 /* SettingsView.swift in Sources */,
-				1234567890ABCDFA /* TestHistory.swift in Sources */,
-				1234567890ABCDFC /* AppSettings.swift in Sources */,
-				1234567890ABCDE1 /* SpeedTestProApp.swift in Sources */,
+				1A001003280ABC1200000001 /* ContentView.swift in Sources */,
+				1A001001280ABC1200000001 /* SpeedTestProApp.swift in Sources */,
+				1A001010280ABC2000000001 /* SpeedTestManager.swift in Sources */,
+				1A001012280ABC3000000001 /* SpeedTestViewModel.swift in Sources */,
+				1A001014280ABC4000000001 /* TestHistory.swift in Sources */,
+				1A001016280ABC5000000001 /* HomeView.swift in Sources */,
+				1A001018280ABC6000000001 /* TestResultsView.swift in Sources */,
+				1A00101A280ABC7000000001 /* HistoryView.swift in Sources */,
+				1A00101C280ABC8000000001 /* SettingsView.swift in Sources */,
+				1A00101E280ABC9000000001 /* AppSettings.swift in Sources */,
+				1A001020280ABCA000000001 /* NetworkUtils.swift in Sources */,
+				1A001022280ABCB000000001 /* ServerModel.swift in Sources */,
+				1A001024280ABCC000000001 /* ServerSelectionService.swift in Sources */,
+				1A001026280ABCD000000001 /* ServerSelectionView.swift in Sources */,
+				1A001028280ABCE000000001 /* ChartData.swift in Sources */,
+				1A00102A280ABCF000000001 /* RealTimeChartView.swift in Sources */,
+				1A00102C280ABD0000000001 /* HistoricalChartsView.swift in Sources */,
+				1A00102E280ABD1000000001 /* ScheduledTest.swift in Sources */,
+				1A001030280ABD2000000001 /* NotificationService.swift in Sources */,
+				1A001032280ABD3000000001 /* ScheduledTestsView.swift in Sources */,
+				1A001034280ABD4000000001 /* NetworkDiagnosticsService.swift in Sources */,
+				1A001036280ABD5000000001 /* NetworkDiagnosticsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1234567890ABCE06 /* Debug */ = {
+		1A00100A280ABC1300000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -349,7 +330,7 @@
 			};
 			name = Debug;
 		};
-		1234567890ABCE07 /* Release */ = {
+		1A00100B280ABC1300000001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -405,7 +386,7 @@
 			};
 			name = Release;
 		};
-		1234567890ABCE08 /* Debug */ = {
+		1A00100D280ABC1300000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -414,24 +395,19 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedTestPro/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpeedTestPro/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SpeedTest Pro";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses location to select the nearest speed test server for more accurate results.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SpeedTestPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -439,7 +415,7 @@
 			};
 			name = Debug;
 		};
-		1234567890ABCE09 /* Release */ = {
+		1A00100E280ABC1300000001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -448,24 +424,19 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedTestPro/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpeedTestPro/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "SpeedTest Pro";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses location to select the nearest speed test server for more accurate results.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.SpeedTestPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -476,25 +447,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1234567890ABCDD8 /* Build configuration list for PBXProject "SpeedTestPro" */ = {
+		1A000FF8280ABC1200000001 /* Build configuration list for PBXProject "SpeedTestPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1234567890ABCE06 /* Debug */,
-				1234567890ABCE07 /* Release */,
+				1A00100A280ABC1300000001 /* Debug */,
+				1A00100B280ABC1300000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1234567890ABCE05 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */ = {
+		1A00100C280ABC1300000001 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1234567890ABCE08 /* Debug */,
-				1234567890ABCE09 /* Release */,
+				1A00100D280ABC1300000001 /* Debug */,
+				1A00100E280ABC1300000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1234567890ABCDD5 /* Project object */;
+	rootObject = 1A000FF5280ABC1200000001 /* Project object */;
 }

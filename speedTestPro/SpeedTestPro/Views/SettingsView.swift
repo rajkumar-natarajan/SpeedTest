@@ -63,7 +63,7 @@ struct SettingsView: View {
                         Label("Network Diagnostics", systemImage: "network")
                     }
                     
-                    NavigationLink(destination: HistoricalChartsView(testHistory: testHistory)) {
+                    NavigationLink(destination: HistoricalChartsView(testHistory: TestHistory.shared)) {
                         Label("Speed History Charts", systemImage: "chart.line.uptrend.xyaxis")
                     }
                 }

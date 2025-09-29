@@ -43,9 +43,9 @@ class NotificationService: NSObject, ObservableObject {
     
     /// Schedule a speed test notification
     func scheduleTest(_ test: ScheduledTest) async -> Bool {
-        guard isAuthorized else {
+        if !isAuthorized {
             let granted = await requestPermission()
-            if !granted { return false }
+            guard granted else { return false }
         }
         
         let content = UNMutableNotificationContent()
@@ -154,17 +154,19 @@ class NotificationService: NSObject, ObservableObject {
 
 // MARK: - UNUserNotificationCenterDelegate
 extension NotificationService: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, 
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, 
                               willPresent notification: UNNotification, 
                               withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // Show notification even when app is in foreground
-        completionHandler([.alert, .sound, .badge])
+        completionHandler([.banner, .sound, .badge])
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, 
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, 
                               didReceive response: UNNotificationResponse, 
                               withCompletionHandler completionHandler: @escaping () -> Void) {
-        handleNotificationResponse(response)
+        Task { @MainActor in
+            handleNotificationResponse(response)
+        }
         completionHandler()
     }
 }

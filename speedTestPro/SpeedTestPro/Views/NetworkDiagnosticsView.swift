@@ -164,7 +164,7 @@ struct NetworkDiagnosticsView: View {
                     Spacer()
                     
                     Text(ipAddress)
-                        .fontFamily(.monospaced)
+                        .font(.system(.body, design: .monospaced))
                 }
             }
             
@@ -176,7 +176,7 @@ struct NetworkDiagnosticsView: View {
                     Spacer()
                     
                     Text("\(signalStrength) dBm")
-                        .fontFamily(.monospaced)
+                        .font(.system(.body, design: .monospaced))
                 }
             }
         }
@@ -213,11 +213,11 @@ struct NetworkDiagnosticsView: View {
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
                 if let packetLoss = diagnostics.packetLoss {
-                    MetricTile(title: "Packet Loss", value: "\(packetLoss, specifier: "%.1f")%", color: packetLoss < 1 ? .green : .red)
+                    MetricTile(title: "Packet Loss", value: "\(String(format: "%.1f", packetLoss))%", color: packetLoss < 1 ? .green : .red)
                 }
                 
                 if let jitter = diagnostics.jitter {
-                    MetricTile(title: "Jitter", value: "\(jitter, specifier: "%.1f") ms", color: jitter < 10 ? .green : .orange)
+                    MetricTile(title: "Jitter", value: "\(String(format: "%.1f", jitter)) ms", color: jitter < 10 ? .green : .orange)
                 }
                 
                 if let mtu = diagnostics.mtu {
@@ -312,27 +312,27 @@ struct NetworkDiagnosticsView: View {
             VStack(spacing: 8) {
                 ConfigRow(
                     label: "Throughput Variability",
-                    value: "\(diagnostics.performanceMetrics.throughputVariability, specifier: "%.3f")"
+                    value: String(format: "%.3f", diagnostics.performanceMetrics.throughputVariability)
                 )
                 
                 ConfigRow(
                     label: "Connection Stability",
-                    value: "\(diagnostics.performanceMetrics.connectionStability, specifier: "%.1f")%"
+                    value: "\(String(format: "%.1f", diagnostics.performanceMetrics.connectionStability))%"
                 )
                 
                 ConfigRow(
                     label: "Response Consistency",
-                    value: "\(diagnostics.performanceMetrics.responseTimeConsistency, specifier: "%.1f") ms"
+                    value: "\(String(format: "%.1f", diagnostics.performanceMetrics.responseTimeConsistency)) ms"
                 )
                 
                 ConfigRow(
                     label: "Error Rate",
-                    value: "\(diagnostics.performanceMetrics.errorRate, specifier: "%.2f")%"
+                    value: "\(String(format: "%.2f", diagnostics.performanceMetrics.errorRate))%"
                 )
                 
                 ConfigRow(
                     label: "Retransmission Rate",
-                    value: "\(diagnostics.performanceMetrics.retransmissionRate, specifier: "%.2f")%"
+                    value: "\(String(format: "%.2f", diagnostics.performanceMetrics.retransmissionRate))%"
                 )
             }
         }
@@ -357,7 +357,7 @@ struct NetworkDiagnosticsView: View {
                         Spacer()
                         
                         Text(server)
-                            .fontFamily(.monospaced)
+                            .font(.system(.body, design: .monospaced))
                     }
                 }
             }
@@ -376,7 +376,7 @@ struct NetworkDiagnosticsView: View {
             
             VStack(spacing: 8) {
                 if let latencyVar = diagnostics.latencyVariation {
-                    ConfigRow(label: "Latency Variation", value: "\(latencyVar, specifier: "%.1f") ms")
+                    ConfigRow(label: "Latency Variation", value: "\(String(format: "%.1f", latencyVar)) ms")
                 }
                 
                 if let bandwidth = diagnostics.bandwidth {
@@ -510,7 +510,7 @@ struct ConfigRow: View {
             Spacer()
             
             Text(value)
-                .fontFamily(.monospaced)
+                .font(.system(.body, design: .monospaced))
         }
     }
 }
@@ -539,7 +539,7 @@ struct DiagnosticsHistoryRow: View {
                 if let ip = diagnostics.ipAddress {
                     Text(ip)
                         .font(.caption)
-                        .fontFamily(.monospaced)
+                        .font(.system(.body, design: .monospaced))
                         .foregroundColor(.secondary)
                 }
             }

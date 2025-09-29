@@ -185,7 +185,7 @@ struct RealTimeChartView: View {
         HStack(spacing: 20) {
             MetricCard(
                 title: "Current",
-                value: "\(viewModel.currentSpeed, specifier: "%.1f")",
+                value: String(format: "%.1f", viewModel.currentSpeed),
                 unit: viewModel.currentTestPhase == .ping ? "ms" : "Mbps",
                 color: selectedTab == 0 ? .blue : selectedTab == 1 ? .green : .orange
             )
@@ -210,11 +210,11 @@ struct RealTimeChartView: View {
     private func getPeakValue() -> String {
         switch selectedTab {
         case 0:
-            return "\(chartData.maxDownloadSpeed, specifier: "%.1f")"
+            return String(format: "%.1f", chartData.maxDownloadSpeed)
         case 1:
-            return "\(chartData.maxUploadSpeed, specifier: "%.1f")"
+            return String(format: "%.1f", chartData.maxUploadSpeed)
         case 2:
-            return "\(chartData.maxPing, specifier: "%.1f")"
+            return String(format: "%.1f", chartData.maxPing)
         default:
             return "0.0"
         }
@@ -224,13 +224,13 @@ struct RealTimeChartView: View {
         switch selectedTab {
         case 0:
             let avg = chartData.downloadDataPoints.map(\.speed).reduce(0, +) / Double(max(chartData.downloadDataPoints.count, 1))
-            return "\(avg, specifier: "%.1f")"
+            return String(format: "%.1f", avg)
         case 1:
             let avg = chartData.uploadDataPoints.map(\.speed).reduce(0, +) / Double(max(chartData.uploadDataPoints.count, 1))
-            return "\(avg, specifier: "%.1f")"
+            return String(format: "%.1f", avg)
         case 2:
             let avg = chartData.pingDataPoints.map(\.speed).reduce(0, +) / Double(max(chartData.pingDataPoints.count, 1))
-            return "\(avg, specifier: "%.1f")"
+            return String(format: "%.1f", avg)
         default:
             return "0.0"
         }
