@@ -7,7 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1234567890ABCDE1 /* SpeedTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE0 /* SpeedTestProApp.swift */; };
+		1234567890ABCD			1234567890ABCE17 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1234567890ABCDE2 /* ContentView.swift */,
+				1234567890ABCDEB /* HomeView.swift */,
+				1234567890ABCDED /* TestResultsView.swift */,
+				1234567890ABCDEF /* HistoryView.swift */,
+				1234567890ABCDF1 /* SettingsView.swift */,
+				1234567890ABCE01 /* ServerSelectionView.swift */,
+				1234567890ABCE05 /* RealTimeChartView.swift */,
+				1234567890ABCE07 /* HistoricalChartsView.swift */,
+				1234567890ABCE0D /* ScheduledTestsView.swift */,
+				1234567890ABCE11 /* NetworkDiagnosticsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};BCDF9 /		1234567890ABCE15 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1234567890ABCDF5 /* SpeedTestManager.swift */,
+				1234567890ABCDFF /* ServerSelectionService.swift */,
+				1234567890ABCE09 /* NotificationService.swift */,
+				1234567890ABCE0F /* NetworkDiagnosticsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		}; */ = {
+			isa = PBXGroup;
+			children = (
+				1234567890ABCDF9 /* TestHistory.swift */,
+				1234567890ABCDFB /* AppSettings.swift */,
+				1234567890ABCDFD /* ServerModel.swift */,
+				1234567890ABCE03 /* ChartData.swift */,
+				1234567890ABCE0B /* ScheduledTest.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};edTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE0 /* SpeedTestProApp.swift */; };
 		1234567890ABCDE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE2 /* ContentView.swift */; };
 		1234567890ABCDE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE4 /* Assets.xcassets */; };
 		1234567890ABCDE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE7 /* Preview Assets.xcassets */; };
@@ -21,6 +58,17 @@
 		1234567890ABCDF8 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF7 /* NetworkUtils.swift */; };
 		1234567890ABCDFA /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF9 /* TestHistory.swift */; };
 		1234567890ABCDFC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFB /* AppSettings.swift */; };
+		1234567890ABCDFE /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFD /* ServerModel.swift */; };
+		1234567890ABCE00 /* ServerSelectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFF /* ServerSelectionService.swift */; };
+		1234567890ABCE02 /* ServerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE01 /* ServerSelectionView.swift */; };
+		1234567890ABCE04 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE03 /* ChartData.swift */; };
+		1234567890ABCE06 /* RealTimeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE05 /* RealTimeChartView.swift */; };
+		1234567890ABCE08 /* HistoricalChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE07 /* HistoricalChartsView.swift */; };
+		1234567890ABCE0A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE09 /* NotificationService.swift */; };
+		1234567890ABCE0C /* ScheduledTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0B /* ScheduledTest.swift */; };
+		1234567890ABCE0E /* ScheduledTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0D /* ScheduledTestsView.swift */; };
+		1234567890ABCE10 /* NetworkDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE0F /* NetworkDiagnosticsService.swift */; };
+		1234567890ABCE12 /* NetworkDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCE11 /* NetworkDiagnosticsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +87,18 @@
 		1234567890ABCDF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		1234567890ABCDF9 /* TestHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
 		1234567890ABCDFB /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		1234567890ABCDFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1234567890ABCDFD /* ServerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
+		1234567890ABCDFF /* ServerSelectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionService.swift; sourceTree = "<group>"; };
+		1234567890ABCE01 /* ServerSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionView.swift; sourceTree = "<group>"; };
+		1234567890ABCE03 /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
+		1234567890ABCE05 /* RealTimeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeChartView.swift; sourceTree = "<group>"; };
+		1234567890ABCE07 /* HistoricalChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalChartsView.swift; sourceTree = "<group>"; };
+		1234567890ABCE09 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1234567890ABCE0B /* ScheduledTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTest.swift; sourceTree = "<group>"; };
+		1234567890ABCE0D /* ScheduledTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTestsView.swift; sourceTree = "<group>"; };
+		1234567890ABCE0F /* NetworkDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsService.swift; sourceTree = "<group>"; };
+		1234567890ABCE11 /* NetworkDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsView.swift; sourceTree = "<group>"; };
+		1234567890ABCE13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
