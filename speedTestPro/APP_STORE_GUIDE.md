@@ -36,6 +36,117 @@ Update version numbers in project settings:
 - **Version**: 1.0.0 (Marketing Version)
 - **Build**: 1 (Current Project Version)
 
+## 🏃‍♂️ Building and Running in Simulator
+
+### Prerequisites for Local Development
+Before submitting to App Store, test your app thoroughly in the iOS Simulator:
+
+### 1. Open Project in Xcode
+```bash
+# Navigate to project directory
+cd /path/to/speedTestPro
+
+# Open Xcode project
+open SpeedTestPro.xcodeproj
+```
+
+### 2. Select Simulator Target
+1. In Xcode, click the device/simulator selector (top toolbar)
+2. Choose from available simulators:
+   - **iPhone 15** (Recommended for testing)
+   - **iPhone 15 Plus** 
+   - **iPhone 15 Pro Max**
+   - **iPad Pro** (for tablet testing)
+
+### 3. Build and Run via Xcode
+**Method 1: Using Xcode Interface**
+1. Select your target simulator
+2. Click the "Play" button (▶️) or press `⌘+R`
+3. Wait for build to complete
+4. App launches automatically in simulator
+
+**Method 2: Using Command Line**
+```bash
+# Build for iPhone 15 simulator
+xcodebuild -project SpeedTestPro.xcodeproj \
+  -scheme SpeedTestPro \
+  -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+  build
+
+# Run in simulator (after building)
+xcrun simctl install booted /path/to/built/SpeedTestPro.app
+xcrun simctl launch booted com.example.SpeedTestPro
+```
+
+### 4. Testing Checklist in Simulator
+Verify the following functionality:
+
+#### Core Features
+- [ ] **Speed Test**: Tap "Start Test" and verify progress indicators
+- [ ] **Results Display**: Check download/upload speeds and ping metrics
+- [ ] **History View**: Navigate to history and verify past results
+- [ ] **Settings**: Test dark mode toggle and preferences
+
+#### UI/UX Testing
+- [ ] **Portrait/Landscape**: Rotate device and test layouts
+- [ ] **Different Screen Sizes**: Test on iPhone and iPad simulators
+- [ ] **Dark Mode**: Toggle appearance in simulator settings
+- [ ] **Dynamic Type**: Test with larger text sizes (Accessibility Inspector)
+
+#### Network Simulation
+Test different network conditions:
+1. **Simulator Menu → Device → Network Link Conditioner**
+2. Choose profiles:
+   - 100% Loss (no connection)
+   - High Latency DNS
+   - Very Bad Network
+   - 3G, LTE, WiFi profiles
+
+#### Performance Testing
+- [ ] **Memory Usage**: Monitor in Xcode Debug Navigator
+- [ ] **CPU Usage**: Check performance during speed tests
+- [ ] **Battery Impact**: Verify efficient network usage
+- [ ] **Launch Time**: App should start quickly
+
+### 5. Debugging Common Simulator Issues
+
+#### Build Failures
+```bash
+# Clean build folder
+⌘+⇧+K (Product → Clean Build Folder)
+
+# Reset simulator
+xcrun simctl erase all
+```
+
+#### Network Issues in Simulator
+- Simulator uses host machine's network connection
+- Test servers (Google, Cloudflare, Amazon) should be accessible
+- If tests fail, verify internet connectivity on host machine
+
+#### Simulator Limitations
+- **GPS/Location**: Uses simulated location data
+- **Camera**: Uses sample images/videos
+- **Performance**: May not reflect real device performance
+- **Network Speed**: Limited by host machine's connection
+
+### 6. Device Testing (Optional)
+For more accurate testing before App Store submission:
+
+```bash
+# Build for connected device
+xcodebuild -project SpeedTestPro.xcodeproj \
+  -scheme SpeedTestPro \
+  -destination 'platform=iOS,name=Your iPhone' \
+  build
+```
+
+**Requirements for Device Testing:**
+- Apple Developer account
+- Device registered in Developer Portal
+- Development provisioning profile
+- Device connected via USB or Wi-Fi
+
 ## 🔐 Code Signing Setup
 
 ### Automatic Signing (Recommended)
