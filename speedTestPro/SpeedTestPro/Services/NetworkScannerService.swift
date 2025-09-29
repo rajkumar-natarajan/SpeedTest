@@ -11,6 +11,7 @@ import Network
 import SystemConfiguration
 import UIKit
 import os.log
+import Darwin
 
 /// Service for scanning and discovering devices on the local network
 @MainActor
@@ -33,6 +34,73 @@ class NetworkScannerService: ObservableObject {
     }
     
     // MARK: - Public Methods
+    
+    /// Test method to generate sample devices for demonstration
+    func generateSampleDevices() {
+        let sampleDevices = [
+            ConnectedDevice(
+                ipAddress: "192.168.1.1",
+                macAddress: nil,
+                hostname: "TP-Link Router",
+                deviceType: .router,
+                manufacturer: "TP-Link",
+                isCurrentDevice: false,
+                lastSeen: Date(),
+                responseTime: 0.003
+            ),
+            ConnectedDevice(
+                ipAddress: "192.168.1.25",
+                macAddress: nil,
+                hostname: "MacBook Pro",
+                deviceType: .laptop,
+                manufacturer: "Apple",
+                isCurrentDevice: false,
+                lastSeen: Date(),
+                responseTime: 0.012
+            ),
+            ConnectedDevice(
+                ipAddress: "192.168.1.105",
+                macAddress: nil,
+                hostname: "iPhone 15",
+                deviceType: .smartphone,
+                manufacturer: "Apple",
+                isCurrentDevice: true,
+                lastSeen: Date(),
+                responseTime: 0.008
+            ),
+            ConnectedDevice(
+                ipAddress: "192.168.1.180",
+                macAddress: nil,
+                hostname: "Samsung Smart TV",
+                deviceType: .smartTV,
+                manufacturer: "Samsung",
+                isCurrentDevice: false,
+                lastSeen: Date(),
+                responseTime: 0.045
+            ),
+            ConnectedDevice(
+                ipAddress: "192.168.1.210",
+                macAddress: nil,
+                hostname: "HP Printer",
+                deviceType: .printer,
+                manufacturer: "HP",
+                isCurrentDevice: false,
+                lastSeen: Date(),
+                responseTime: 0.025
+            )
+        ]
+        
+        self.lastScanResult = NetworkScanResult(
+            scanDate: Date(),
+            scanTime: Date(),
+            networkName: "Demo WiFi Network",
+            networkSSID: "Demo WiFi",
+            routerIP: "192.168.1.1",
+            subnet: "192.168.1",
+            connectedDevices: sampleDevices,
+            scanDuration: 2.5
+        )
+    }
     
     /// Scan the local network for connected devices
     func scanNetwork() async {
@@ -120,9 +188,7 @@ class NetworkScannerService: ObservableObject {
                         results.append(device)
                     }
                     scannedCount += 1
-                    await MainActor.run {
-                        self.scanProgress = Double(scannedCount) / Double(totalIPs)
-                    }
+                    self.scanProgress = Double(scannedCount) / Double(totalIPs)
                 }
                 
                 return results
@@ -135,9 +201,10 @@ class NetworkScannerService: ObservableObject {
         
         return NetworkScanResult(
             scanDate: Date(),
-            networkName: networkInfo.ssid,
-            networkSSID: networkInfo.ssid,
-            routerIP: networkInfo.routerIP,
+            scanTime: Date(),
+            networkName: networkInfo.ssid ?? "Local Network",
+            networkSSID: networkInfo.ssid ?? "Local WiFi",
+            routerIP: networkInfo.routerIP ?? "192.168.1.1",
             subnet: subnet,
             connectedDevices: discoveredDevices.sorted { $0.ipAddress.localizedStandardCompare($1.ipAddress) == .orderedAscending },
             scanDuration: scanDuration
@@ -167,98 +234,120 @@ class NetworkScannerService: ObservableObject {
     
     private func getDeviceInfo(for ipAddress: String, isCurrentDevice: Bool) async -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
         if isCurrentDevice {
+            let currentDeviceName = UIDevice.current.name
+            logger.info("Current device: \(currentDeviceName)")
             return (
-                name: UIDevice.current.name,
+                name: currentDeviceName,
                 type: .smartphone,
                 manufacturer: "Apple"
             )
         }
+        
+        logger.info("Resolving device info for IP: \(ipAddress)")
         
         // Try multiple resolution methods
         var deviceName: String?
         var detectedType: ConnectedDevice.DeviceType = .unknown
         var manufacturer: String?
         
-        // Method 1: Try hostname resolution
-        deviceName = await resolveHostname(for: ipAddress)
+        // Method 1: Enhanced device fingerprinting through service detection
+        let deviceFingerprint = await detectDeviceByServices(for: ipAddress)
+        if deviceFingerprint.type != .unknown {
+            detectedType = deviceFingerprint.type
+            manufacturer = deviceFingerprint.manufacturer
+            deviceName = deviceFingerprint.name
+            logger.info("Service fingerprint for \(ipAddress): \(deviceName ?? "nil"), type: \(String(describing: detectedType))")
+        }
         
-        // Method 2: Try Bonjour/mDNS resolution if hostname failed
-        if deviceName == nil {
+        // Method 2: Try hostname resolution
+        if deviceName == nil || deviceName!.isEmpty {
+            deviceName = await resolveHostname(for: ipAddress)
+            logger.info("Hostname resolution for \(ipAddress): \(deviceName ?? "nil")")
+        }
+        
+        // Method 3: Try Bonjour/mDNS resolution if hostname failed
+        if deviceName == nil || deviceName!.isEmpty {
             deviceName = await resolveBonjourName(for: ipAddress)
+            logger.info("Bonjour resolution for \(ipAddress): \(deviceName ?? "nil")")
         }
         
-        // Method 3: Try NETBIOS name resolution if others failed
-        if deviceName == nil {
-            deviceName = await resolveNetBIOSName(for: ipAddress)
-        }
-        
-        // Method 4: Try to get device info from HTTP headers/server responses
-        if deviceName == nil {
-            let httpInfo = await getDeviceInfoFromHTTP(for: ipAddress)
+        // Method 4: Try enhanced HTTP probing with multiple ports
+        if deviceName == nil || deviceName!.isEmpty {
+            let httpInfo = await getEnhancedDeviceInfoFromHTTP(for: ipAddress)
             deviceName = httpInfo.name
             if detectedType == .unknown && httpInfo.type != .unknown {
                 detectedType = httpInfo.type
+                manufacturer = httpInfo.manufacturer
             }
+            logger.info("Enhanced HTTP resolution for \(ipAddress): \(deviceName ?? "nil"), type: \(String(describing: detectedType))")
         }
         
         // Estimate device type and manufacturer from the resolved name
-        if let name = deviceName {
+        if let name = deviceName, !name.isEmpty {
             let typeAndManufacturer = estimateDeviceTypeAndManufacturer(from: name, ip: ipAddress)
-            detectedType = typeAndManufacturer.type
-            manufacturer = typeAndManufacturer.manufacturer
+            if detectedType == .unknown {
+                detectedType = typeAndManufacturer.type
+            }
+            if manufacturer == nil {
+                manufacturer = typeAndManufacturer.manufacturer
+            }
+            logger.info("Detected type for \(ipAddress) (\(name)): \(String(describing: detectedType)), manufacturer: \(manufacturer ?? "nil")")
         } else {
-            // Generate a friendly name based on IP and type
-            detectedType = estimateDeviceType(ip: ipAddress, hostname: nil, isCurrentDevice: false)
-            deviceName = generateFriendlyName(for: ipAddress, type: detectedType)
+            // Generate a smart name based on IP, type and detected services
+            if detectedType == .unknown {
+                detectedType = estimateDeviceType(ip: ipAddress, hostname: nil, isCurrentDevice: false)
+            }
+            deviceName = generateSmartDeviceName(for: ipAddress, type: detectedType, manufacturer: manufacturer)
+            logger.info("Generated smart name for \(ipAddress): \(deviceName ?? "nil"), type: \(String(describing: detectedType))")
         }
         
-        return (name: deviceName, type: detectedType, manufacturer: manufacturer)
+        // Ensure we always have a name - final fallback
+        if deviceName == nil || deviceName!.isEmpty {
+            detectedType = estimateDeviceType(ip: ipAddress, hostname: nil, isCurrentDevice: false)
+            deviceName = generateSmartDeviceName(for: ipAddress, type: detectedType, manufacturer: manufacturer)
+            logger.info("Final fallback name for \(ipAddress): \(deviceName ?? "nil"), type: \(String(describing: detectedType))")
+        }
+        
+        // Double-check we have a valid name (should never be nil now)
+        let finalName = deviceName ?? generateSmartDeviceName(for: ipAddress, type: detectedType, manufacturer: manufacturer)
+        logger.info("Final device info for \(ipAddress): name='\(finalName)', type=\(String(describing: detectedType)), manufacturer=\(manufacturer ?? "nil")")
+        
+        return (name: finalName, type: detectedType, manufacturer: manufacturer)
     }
     
     private func pingDevice(at ipAddress: String) async -> TimeInterval? {
-        return await withCheckedContinuation { continuation in
-            let startTime = Date()
-            var hasResumed = false
-            let lock = NSLock()
+        let startTime = Date()
+        
+        // Use async/await URLSession API instead of continuation to avoid misuse
+        guard let url = URL(string: "http://\(ipAddress)") else {
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.timeoutInterval = scanTimeout
+        request.httpMethod = "HEAD"
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            let responseTime = Date().timeIntervalSince(startTime)
             
-            func resumeOnce(with value: TimeInterval?) {
-                lock.lock()
-                defer { lock.unlock() }
-                
-                if !hasResumed {
-                    hasResumed = true
-                    continuation.resume(returning: value)
+            // If we get any response, the device is reachable
+            if response is HTTPURLResponse {
+                return responseTime
+            }
+            return nil
+        } catch {
+            // Check if it's a connection error vs timeout
+            if let nsError = error as? NSError {
+                // Some errors still indicate the device is reachable (like 404, 403, etc)
+                if nsError.code != NSURLErrorCannotConnectToHost && 
+                   nsError.code != NSURLErrorTimedOut &&
+                   nsError.code != NSURLErrorNetworkConnectionLost {
+                    let responseTime = Date().timeIntervalSince(startTime)
+                    return responseTime
                 }
             }
-            
-            // Use a simpler approach with URLSession for better compatibility
-            guard let url = URL(string: "http://\(ipAddress)") else {
-                resumeOnce(with: nil)
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.timeoutInterval = scanTimeout
-            request.httpMethod = "HEAD"
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                let responseTime = Date().timeIntervalSince(startTime)
-                
-                // If we get any response (even error responses), the device is reachable
-                if response != nil || (error as? NSError)?.code != NSURLErrorCannotConnectToHost {
-                    resumeOnce(with: responseTime)
-                } else {
-                    resumeOnce(with: nil)
-                }
-            }
-            
-            task.resume()
-            
-            // Timeout fallback
-            DispatchQueue.global().asyncAfter(deadline: .now() + scanTimeout + 0.1) {
-                task.cancel()
-                resumeOnce(with: nil)
-            }
+            return nil
         }
     }
     
@@ -324,61 +413,53 @@ class NetworkScannerService: ObservableObject {
     
     private func getDeviceInfoFromHTTP(for ipAddress: String) async -> (name: String?, type: ConnectedDevice.DeviceType) {
         // Try to get device information from HTTP responses
-        return await withCheckedContinuation { continuation in
-            guard let url = URL(string: "http://\(ipAddress)") else {
-                continuation.resume(returning: (nil, .unknown))
-                return
-            }
+        guard let url = URL(string: "http://\(ipAddress)") else {
+            return (nil, .unknown)
+        }
+        
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 2.0
+        request.setValue("SpeedTestPro/1.0", forHTTPHeaderField: "User-Agent")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            var deviceName: String?
+            var deviceType: ConnectedDevice.DeviceType = .unknown
             
-            var request = URLRequest(url: url)
-            request.timeoutInterval = 2.0
-            request.setValue("SpeedTestPro/1.0", forHTTPHeaderField: "User-Agent")
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                var deviceName: String?
-                var deviceType: ConnectedDevice.DeviceType = .unknown
+            if let httpResponse = response as? HTTPURLResponse {
+                // Check for device-specific headers
+                if let server = httpResponse.allHeaderFields["Server"] as? String {
+                    deviceName = extractDeviceNameFromServer(server)
+                    deviceType = extractDeviceTypeFromServer(server)
+                }
                 
-                if let httpResponse = response as? HTTPURLResponse {
-                    // Check for device-specific headers
-                    if let server = httpResponse.allHeaderFields["Server"] as? String {
-                        deviceName = self.extractDeviceNameFromServer(server)
-                        deviceType = self.extractDeviceTypeFromServer(server)
-                    }
-                    
-                    // Check for other identifying headers
-                    if deviceName == nil {
-                        for (key, value) in httpResponse.allHeaderFields {
-                            if let keyStr = key as? String,
-                               let valueStr = value as? String {
-                                if keyStr.lowercased().contains("device") ||
-                                   keyStr.lowercased().contains("model") ||
-                                   keyStr.lowercased().contains("product") {
-                                    deviceName = valueStr
-                                    break
-                                }
+                // Check for other identifying headers
+                if deviceName == nil {
+                    for (key, value) in httpResponse.allHeaderFields {
+                        if let keyStr = key as? String,
+                           let valueStr = value as? String {
+                            if keyStr.lowercased().contains("device") ||
+                               keyStr.lowercased().contains("model") ||
+                               keyStr.lowercased().contains("product") {
+                                deviceName = valueStr
+                                break
                             }
                         }
                     }
                 }
-                
-                // Try to extract device info from HTML content
-                if deviceName == nil, let data = data, let html = String(data: data, encoding: .utf8) {
-                    deviceName = self.extractDeviceNameFromHTML(html)
-                    if deviceType == .unknown {
-                        deviceType = self.extractDeviceTypeFromHTML(html)
-                    }
+            }
+            
+            // Try to extract device info from HTML content
+            if deviceName == nil, let html = String(data: data, encoding: .utf8) {
+                deviceName = extractDeviceNameFromHTML(html)
+                if deviceType == .unknown {
+                    deviceType = extractDeviceTypeFromHTML(html)
                 }
-                
-                continuation.resume(returning: (deviceName, deviceType))
             }
             
-            task.resume()
-            
-            // Timeout
-            DispatchQueue.global().asyncAfter(deadline: .now() + 2.5) {
-                task.cancel()
-                continuation.resume(returning: (nil, .unknown))
-            }
+            return (deviceName, deviceType)
+        } catch {
+            return (nil, .unknown)
         }
     }
     
@@ -473,36 +554,7 @@ class NetworkScannerService: ObservableObject {
         return nil
     }
     
-    private func generateFriendlyName(for ipAddress: String, type: ConnectedDevice.DeviceType) -> String {
-        let lastOctet = ipAddress.components(separatedBy: ".").last ?? "X"
-        
-        switch type {
-        case .router:
-            return "Router (.1)" // Usually the router
-        case .smartphone:
-            return "Phone (.x\(lastOctet))"
-        case .tablet:
-            return "Tablet (.x\(lastOctet))"
-        case .laptop:
-            return "Laptop (.x\(lastOctet))"
-        case .desktop:
-            return "Computer (.x\(lastOctet))"
-        case .smartTV:
-            return "Smart TV (.x\(lastOctet))"
-        case .gameConsole:
-            return "Game Console (.x\(lastOctet))"
-        case .iotDevice:
-            return "Smart Device (.x\(lastOctet))"
-        case .printer:
-            return "Printer (.x\(lastOctet))"
-        case .speaker:
-            return "Speaker (.x\(lastOctet))"
-        case .unknown:
-            return "Device (.x\(lastOctet))"
-        }
-    }
-    
-    private func extractDeviceNameFromServer(_ server: String) -> String? {
+    nonisolated private func extractDeviceNameFromServer(_ server: String) -> String? {
         let lowercaseServer = server.lowercased()
         
         // Common device identifiers in server headers
@@ -519,7 +571,7 @@ class NetworkScannerService: ObservableObject {
         return nil
     }
     
-    private func extractDeviceTypeFromServer(_ server: String) -> ConnectedDevice.DeviceType {
+    nonisolated private func extractDeviceTypeFromServer(_ server: String) -> ConnectedDevice.DeviceType {
         let lowercaseServer = server.lowercased()
         
         if lowercaseServer.contains("router") {
@@ -535,7 +587,7 @@ class NetworkScannerService: ObservableObject {
         return .unknown
     }
     
-    private func extractDeviceNameFromHTML(_ html: String) -> String? {
+    nonisolated private func extractDeviceNameFromHTML(_ html: String) -> String? {
         let lowercaseHTML = html.lowercased()
         
         // Look for common device identification patterns in HTML
@@ -554,7 +606,7 @@ class NetworkScannerService: ObservableObject {
         return nil
     }
     
-    private func extractDeviceTypeFromHTML(_ html: String) -> ConnectedDevice.DeviceType {
+    nonisolated private func extractDeviceTypeFromHTML(_ html: String) -> ConnectedDevice.DeviceType {
         let lowercaseHTML = html.lowercased()
         
         if lowercaseHTML.contains("router") || lowercaseHTML.contains("gateway") {
@@ -568,6 +620,263 @@ class NetworkScannerService: ObservableObject {
         }
         
         return .unknown
+    }
+    
+    // MARK: - Enhanced Device Detection Methods
+    
+    private func detectDeviceByServices(for ipAddress: String) async -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        var detectedType: ConnectedDevice.DeviceType = .unknown
+        var manufacturer: String?
+        var deviceName: String?
+        
+        // Try HTTP first (most common)
+        let httpInfo = await getEnhancedDeviceInfoFromHTTP(for: ipAddress)
+        if httpInfo.name != nil || httpInfo.type != .unknown {
+            return httpInfo
+        }
+        
+        // Basic service detection without socket scanning for now
+        // This avoids socket permission issues in iOS simulator
+        
+        return (name: deviceName, type: detectedType, manufacturer: manufacturer)
+    }
+    
+    private func isPortOpen(ipAddress: String, port: Int) async -> Bool {
+        // Simplified port check using URLSession for HTTP ports only
+        guard port == 80 || port == 443 || port == 8080 || port == 8443 else {
+            return false
+        }
+        
+        let scheme = port == 443 || port == 8443 ? "https" : "http"
+        let urlString = port == 80 || port == 443 ? "\(scheme)://\(ipAddress)" : "\(scheme)://\(ipAddress):\(port)"
+        
+        guard let url = URL(string: urlString) else { return false }
+        
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 1.0
+        request.httpMethod = "HEAD"
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            return response != nil
+        } catch {
+            return false
+        }
+    }
+    
+    private func getEnhancedDeviceInfoFromHTTP(for ipAddress: String) async -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        // Try multiple common HTTP ports
+        let httpPorts = [80, 8080, 443, 8443, 8000, 8888]
+        
+        for port in httpPorts {
+            let info = await getDeviceInfoFromHTTPPort(for: ipAddress, port: port)
+            if info.name != nil || info.type != .unknown {
+                return info
+            }
+        }
+        
+        return (nil, .unknown, nil)
+    }
+    
+    private func getDeviceInfoFromHTTPPort(for ipAddress: String, port: Int) async -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        let scheme = port == 443 || port == 8443 ? "https" : "http"
+        let urlString = port == 80 || port == 443 ? "\(scheme)://\(ipAddress)" : "\(scheme)://\(ipAddress):\(port)"
+        
+        guard let url = URL(string: urlString) else {
+            return (nil, .unknown, nil)
+        }
+        
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 2.0
+        request.httpMethod = "GET" // Use GET instead of HEAD to get more info
+        request.setValue("SpeedTestPro/1.0 (iOS)", forHTTPHeaderField: "User-Agent")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            var deviceName: String?
+            var deviceType: ConnectedDevice.DeviceType = .unknown
+            var manufacturer: String?
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                // Check for device-specific headers
+                if let server = httpResponse.allHeaderFields["Server"] as? String {
+                    let serverInfo = analyzeServerHeader(server)
+                    deviceName = serverInfo.name
+                    deviceType = serverInfo.type
+                    manufacturer = serverInfo.manufacturer
+                }
+                
+                // Check for router/device-specific headers
+                for (key, value) in httpResponse.allHeaderFields {
+                    if let keyStr = key as? String, let valueStr = value as? String {
+                        let headerInfo = analyzeHTTPHeader(key: keyStr, value: valueStr)
+                        if headerInfo.type != .unknown {
+                            deviceType = headerInfo.type
+                            if deviceName == nil { deviceName = headerInfo.name }
+                            if manufacturer == nil { manufacturer = headerInfo.manufacturer }
+                        }
+                    }
+                }
+            }
+            
+            // Analyze HTML content for device info
+            if let html = String(data: data, encoding: .utf8) {
+                let htmlInfo = analyzeHTMLContent(html)
+                if deviceName == nil && htmlInfo.name != nil {
+                    deviceName = htmlInfo.name
+                }
+                if deviceType == .unknown && htmlInfo.type != .unknown {
+                    deviceType = htmlInfo.type
+                }
+                if manufacturer == nil && htmlInfo.manufacturer != nil {
+                    manufacturer = htmlInfo.manufacturer
+                }
+            }
+            
+            return (deviceName, deviceType, manufacturer)
+        } catch {
+            return (nil, .unknown, nil)
+        }
+    }
+    
+    nonisolated private func analyzeServerHeader(_ server: String) -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        let lowercaseServer = server.lowercased()
+        
+        if lowercaseServer.contains("nginx") || lowercaseServer.contains("apache") {
+            return ("Web Server", .desktop, nil)
+        } else if lowercaseServer.contains("lighttpd") || lowercaseServer.contains("httpd") {
+            return ("Linux Server", .desktop, nil)
+        } else if lowercaseServer.contains("router") || lowercaseServer.contains("gateway") {
+            return ("Router", .router, nil)
+        } else if lowercaseServer.contains("upnp") {
+            return ("UPnP Device", .smartTV, nil)
+        } else if lowercaseServer.contains("plex") {
+            return ("Plex Server", .smartTV, nil)
+        } else if lowercaseServer.contains("airplay") {
+            return ("Apple TV", .smartTV, "Apple")
+        } else if lowercaseServer.contains("iot") || lowercaseServer.contains("smart") {
+            return ("Smart Device", .iotDevice, nil)
+        }
+        
+        return (nil, .unknown, nil)
+    }
+    
+    nonisolated private func analyzeHTTPHeader(key: String, value: String) -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        let lowercaseKey = key.lowercased()
+        let lowercaseValue = value.lowercased()
+        
+        if lowercaseKey.contains("device") && lowercaseValue.contains("apple") {
+            return ("Apple Device", .smartphone, "Apple")
+        } else if lowercaseValue.contains("android") {
+            return ("Android Device", .smartphone, "Google")
+        } else if lowercaseValue.contains("roku") {
+            return ("Roku", .smartTV, "Roku")
+        } else if lowercaseValue.contains("samsung") && lowercaseValue.contains("tv") {
+            return ("Samsung TV", .smartTV, "Samsung")
+        } else if lowercaseValue.contains("lg") && lowercaseValue.contains("tv") {
+            return ("LG TV", .smartTV, "LG")
+        }
+        
+        return (nil, .unknown, nil)
+    }
+    
+    nonisolated private func analyzeHTMLContent(_ html: String) -> (name: String?, type: ConnectedDevice.DeviceType, manufacturer: String?) {
+        let lowercaseHTML = html.lowercased()
+        
+        // Look for common device indicators in HTML
+        if lowercaseHTML.contains("router") && (lowercaseHTML.contains("admin") || lowercaseHTML.contains("login")) {
+            if lowercaseHTML.contains("tp-link") {
+                return ("TP-Link Router", .router, "TP-Link")
+            } else if lowercaseHTML.contains("netgear") {
+                return ("Netgear Router", .router, "Netgear")
+            } else if lowercaseHTML.contains("linksys") {
+                return ("Linksys Router", .router, "Linksys")
+            } else if lowercaseHTML.contains("asus") {
+                return ("ASUS Router", .router, "ASUS")
+            }
+            return ("Router", .router, nil)
+        } else if lowercaseHTML.contains("printer") || lowercaseHTML.contains("print") {
+            if lowercaseHTML.contains("hp") {
+                return ("HP Printer", .printer, "HP")
+            } else if lowercaseHTML.contains("canon") {
+                return ("Canon Printer", .printer, "Canon")
+            } else if lowercaseHTML.contains("epson") {
+                return ("Epson Printer", .printer, "Epson")
+            }
+            return ("Printer", .printer, nil)
+        } else if lowercaseHTML.contains("smart tv") || lowercaseHTML.contains("television") {
+            return ("Smart TV", .smartTV, nil)
+        } else if lowercaseHTML.contains("plex") {
+            return ("Plex Server", .smartTV, nil)
+        } else if lowercaseHTML.contains("nas") || lowercaseHTML.contains("network attached storage") {
+            return ("NAS Device", .desktop, nil)
+        }
+        
+        return (nil, .unknown, nil)
+    }
+    
+    private func generateSmartDeviceName(for ipAddress: String, type: ConnectedDevice.DeviceType, manufacturer: String?) -> String {
+        let lastOctet = ipAddress.components(separatedBy: ".").last ?? "X"
+        
+        // Try to detect router/gateway by common IP patterns
+        let isLikelyRouter = ipAddress.hasSuffix(".1") || ipAddress.hasSuffix(".254") || 
+                            ipAddress.contains("192.168.1.1") || ipAddress.contains("192.168.0.1") ||
+                            ipAddress.contains("10.0.0.1")
+        
+        if isLikelyRouter {
+            return manufacturer != nil ? "\(manufacturer!) Router" : "Home Router"
+        }
+        
+        let manufacturerPrefix = manufacturer != nil ? "\(manufacturer!) " : ""
+        
+        switch type {
+        case .router:
+            return "\(manufacturerPrefix)Router"
+        case .smartphone:
+            if manufacturer == "Apple" {
+                return "iPhone (\(lastOctet))"
+            } else if manufacturer == "Google" {
+                return "Android (\(lastOctet))"
+            }
+            return "Smartphone (\(lastOctet))"
+        case .tablet:
+            if manufacturer == "Apple" {
+                return "iPad (\(lastOctet))"
+            }
+            return "\(manufacturerPrefix)Tablet (\(lastOctet))"
+        case .laptop:
+            if manufacturer == "Apple" {
+                return "MacBook (\(lastOctet))"
+            }
+            return "\(manufacturerPrefix)Laptop (\(lastOctet))"
+        case .desktop:
+            if manufacturer == "Apple" {
+                return "Mac (\(lastOctet))"
+            }
+            return "\(manufacturerPrefix)Computer (\(lastOctet))"
+        case .smartTV:
+            return "\(manufacturerPrefix)Smart TV (\(lastOctet))"
+        case .gameConsole:
+            return "\(manufacturerPrefix)Game Console (\(lastOctet))"
+        case .iotDevice:
+            return "\(manufacturerPrefix)Smart Device (\(lastOctet))"
+        case .printer:
+            return "\(manufacturerPrefix)Printer (\(lastOctet))"
+        case .speaker:
+            return "\(manufacturerPrefix)Speaker (\(lastOctet))"
+        case .unknown:
+            // Provide smarter unknown device names based on IP patterns  
+            let octet = Int(lastOctet) ?? 0
+            if octet <= 5 {
+                return "Router/Gateway (\(lastOctet))"
+            } else if octet <= 50 {
+                return "Computer (\(lastOctet))"
+            } else if octet <= 200 {
+                return "Mobile Device (\(lastOctet))"
+            } else {
+                return "Smart Device (\(lastOctet))"
+            }
+        }
     }
     
     // MARK: - Network Utility Methods
@@ -697,6 +1006,27 @@ extension NetworkScannerService {
             if ip.hasSuffix(".1") || ip.hasSuffix(".254") {
                 return .router
             }
+            
+            // Common IP ranges for different device types
+            let lastOctet = Int(ip.components(separatedBy: ".").last ?? "0") ?? 0
+            
+            // Router/Gateway range (typically .1-.5)
+            if lastOctet >= 1 && lastOctet <= 5 {
+                return .router
+            }
+            // Static IP range for computers/servers (typically .6-.50)
+            else if lastOctet >= 6 && lastOctet <= 50 {
+                return .desktop
+            }
+            // DHCP range for mobile devices (typically .51-.200)
+            else if lastOctet >= 51 && lastOctet <= 200 {
+                return .smartphone
+            }
+            // High range for IoT devices (typically .201+)
+            else if lastOctet > 200 {
+                return .iotDevice
+            }
+            
             return .unknown
         }
         

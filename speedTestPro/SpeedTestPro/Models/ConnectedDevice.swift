@@ -64,12 +64,17 @@ struct ConnectedDevice: Identifiable, Equatable, Codable {
             case .unknown: return "gray"
             }
         }
+        
+        var displayName: String {
+            return self.rawValue
+        }
     }
 }
 
 /// Network scan result containing all discovered devices
 struct NetworkScanResult: Codable {
     let scanDate: Date
+    let scanTime: Date  // Add scanTime property
     let networkName: String?
     let networkSSID: String?
     let routerIP: String?

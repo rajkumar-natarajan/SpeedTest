@@ -142,10 +142,10 @@ struct NetworkInfoCard: View {
             }
             
             VStack(spacing: 8) {
-                ConnectedDevicesInfoRow(label: "Network Name", value: scanResult.networkName ?? "Unknown Network")
-                ConnectedDevicesInfoRow(label: "Total Devices", value: "\(scanResult.connectedDevices.count)")
-                ConnectedDevicesInfoRow(label: "Scan Duration", value: String(format: "%.1f seconds", scanResult.scanDuration))
-                ConnectedDevicesInfoRow(label: "Last Scan", value: DateFormatter.localizedString(from: scanResult.scanTime, dateStyle: .none, timeStyle: .short))
+                InfoRow(label: "Network Name", value: scanResult.networkName)
+                InfoRow(label: "Total Devices", value: "\(scanResult.connectedDevices.count)")
+                InfoRow(label: "Scan Duration", value: String(format: "%.1f seconds", scanResult.scanDuration))
+                InfoRow(label: "Last Scan", value: DateFormatter.localizedString(from: scanResult.scanTime, dateStyle: .none, timeStyle: .short))
             }
         }
         .padding()
@@ -159,7 +159,7 @@ struct NetworkInfoCard: View {
 struct DeviceTypeSummaryView: View {
     let scanResult: NetworkScanResult
     
-    var deviceTypeCounts: [ConnectedDevice.DeviceType: Int] {
+    var deviceTypeCounts: [DeviceType: Int] {
         Dictionary(grouping: scanResult.connectedDevices, by: { $0.deviceType })
             .mapValues { $0.count }
     }
@@ -174,10 +174,10 @@ struct DeviceTypeSummaryView: View {
             }
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
-                ForEach(deviceTypeCounts.keys.sorted(by: { $0.rawValue < $1.rawValue }), id: \.self) { deviceType in
+                ForEach(Array(deviceTypeCounts.keys.sorted(by: { $0.rawValue < $1.rawValue })), id: \.self) { deviceType in
                     HStack(spacing: 8) {
                         Image(systemName: deviceType.iconName)
-                            .foregroundColor(Color(deviceType.color))
+                            .foregroundColor(deviceType.color)
                             .frame(width: 20)
                         Text("\(deviceType.displayName): \(deviceTypeCounts[deviceType] ?? 0)")
                             .font(.caption)
@@ -204,7 +204,7 @@ struct DeviceRowView: View {
             HStack(spacing: 12) {
                 // Device icon
                 Image(systemName: device.deviceType.iconName)
-                    .foregroundColor(Color(device.deviceType.color))
+                    .foregroundColor(device.deviceType.color)
                     .frame(width: 24, height: 24)
                 
                 VStack(alignment: .leading, spacing: 4) {
@@ -271,7 +271,7 @@ struct DeviceDetailsView: View {
                 VStack(spacing: 12) {
                     Image(systemName: device.deviceType.iconName)
                         .font(.system(size: 48))
-                        .foregroundColor(Color(device.deviceType.color))
+                        .foregroundColor(device.deviceType.color)
                     
                     Text(device.displayName)
                         .font(.title2)
@@ -315,7 +315,7 @@ struct DeviceDetailsView: View {
 
 // MARK: - Helper Views
 
-struct ConnectedDevicesInfoRow: View {
+struct InfoRow: View {
     let label: String
     let value: String
     
