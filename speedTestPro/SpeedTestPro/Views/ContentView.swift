@@ -30,16 +30,28 @@ struct ContentView: View {
                 }
                 .tag(1)
             
+            // Network Insights Tab - AI predictions and community data
+            // TODO: Uncomment when services are added to Xcode project
+            
+            NetworkInsightsView()
+                .tabItem {
+                    Image(systemName: "brain.head.profile")
+                    Text("Insights")
+                }
+                .tag(2)
+            
+            
             // Settings Tab - App preferences
             SettingsView()
                 .tabItem {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
-                .tag(2)
+                .tag(3)
         }
         .accentColor(.blue) // Consistent accent color throughout the app
         .preferredColorScheme(appSettings.isDarkMode ? .dark : .light)
+        .ignoresSafeArea(.keyboard) // Allow keyboard to push content up
     }
 }
 

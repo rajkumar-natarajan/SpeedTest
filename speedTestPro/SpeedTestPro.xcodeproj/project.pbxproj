@@ -31,6 +31,13 @@
 		1A001032280ABD3000000001 /* ScheduledTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001031280ABD3000000001 /* ScheduledTestsView.swift */; };
 		1A001034280ABD4000000001 /* NetworkDiagnosticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001033280ABD4000000001 /* NetworkDiagnosticsService.swift */; };
 		1A001036280ABD5000000001 /* NetworkDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A001035280ABD5000000001 /* NetworkDiagnosticsView.swift */; };
+		FEA629482E8AE0E40009AF77 /* NetworkAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA629472E8AE0E40009AF77 /* NetworkAnalyticsService.swift */; };
+		FEA629492E8AE0E40009AF77 /* CommunityMappingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA629462E8AE0E40009AF77 /* CommunityMappingService.swift */; };
+		FEA6294C2E8AE1020009AF77 /* NetworkInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6294B2E8AE1020009AF77 /* NetworkInsightsView.swift */; };
+		FEA6294D2E8AE1020009AF77 /* CommunityConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6294A2E8AE1020009AF77 /* CommunityConsentView.swift */; };
+		0823E0F0280ABC1200000001 /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0823E0EF280ABC1200000001 /* ConnectedDevice.swift */; };
+		79920D72280ABC1200000001 /* NetworkScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79920D71280ABC1200000001 /* NetworkScannerService.swift */; };
+		A1515357280ABC1200000001 /* ConnectedDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1515356280ABC1200000001 /* ConnectedDevicesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +67,13 @@
 		1A001031280ABD3000000001 /* ScheduledTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTestsView.swift; sourceTree = "<group>"; };
 		1A001033280ABD4000000001 /* NetworkDiagnosticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsService.swift; sourceTree = "<group>"; };
 		1A001035280ABD5000000001 /* NetworkDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiagnosticsView.swift; sourceTree = "<group>"; };
+		FEA629462E8AE0E40009AF77 /* CommunityMappingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityMappingService.swift; sourceTree = "<group>"; };
+		FEA629472E8AE0E40009AF77 /* NetworkAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnalyticsService.swift; sourceTree = "<group>"; };
+		FEA6294A2E8AE1020009AF77 /* CommunityConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityConsentView.swift; sourceTree = "<group>"; };
+		FEA6294B2E8AE1020009AF77 /* NetworkInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInsightsView.swift; sourceTree = "<group>"; };
+		0823E0EF280ABC1200000001 /* ConnectedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevice.swift; sourceTree = "<group>"; };
+		79920D71280ABC1200000001 /* NetworkScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScannerService.swift; sourceTree = "<group>"; };
+		A1515356280ABC1200000001 /* ConnectedDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +130,9 @@
 		1A001037280ABD6000000001 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FEA6294A2E8AE1020009AF77 /* CommunityConsentView.swift */,
+				FEA6294B2E8AE1020009AF77 /* NetworkInsightsView.swift */,
+				A1515356280ABC1200000001 /* ConnectedDevicesView.swift */,
 				1A001002280ABC1200000001 /* ContentView.swift */,
 				1A001015280ABC5000000001 /* HomeView.swift */,
 				1A001017280ABC6000000001 /* TestResultsView.swift */,
@@ -146,6 +163,7 @@
 				1A001021280ABCB000000001 /* ServerModel.swift */,
 				1A001027280ABCE000000001 /* ChartData.swift */,
 				1A00102D280ABD1000000001 /* ScheduledTest.swift */,
+				0823E0EF280ABC1200000001 /* ConnectedDevice.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -153,6 +171,9 @@
 		1A00103A280ABD9000000001 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FEA629462E8AE0E40009AF77 /* CommunityMappingService.swift */,
+				FEA629472E8AE0E40009AF77 /* NetworkAnalyticsService.swift */,
+				79920D71280ABC1200000001 /* NetworkScannerService.swift */,
 				1A00100F280ABC2000000001 /* SpeedTestManager.swift */,
 				1A001023280ABCC000000001 /* ServerSelectionService.swift */,
 				1A00102F280ABD2000000001 /* NotificationService.swift */,
@@ -247,6 +268,8 @@
 				1A001016280ABC5000000001 /* HomeView.swift in Sources */,
 				1A001018280ABC6000000001 /* TestResultsView.swift in Sources */,
 				1A00101A280ABC7000000001 /* HistoryView.swift in Sources */,
+				FEA629482E8AE0E40009AF77 /* NetworkAnalyticsService.swift in Sources */,
+				FEA629492E8AE0E40009AF77 /* CommunityMappingService.swift in Sources */,
 				1A00101C280ABC8000000001 /* SettingsView.swift in Sources */,
 				1A00101E280ABC9000000001 /* AppSettings.swift in Sources */,
 				1A001020280ABCA000000001 /* NetworkUtils.swift in Sources */,
@@ -259,6 +282,11 @@
 				1A00102E280ABD1000000001 /* ScheduledTest.swift in Sources */,
 				1A001030280ABD2000000001 /* NotificationService.swift in Sources */,
 				1A001032280ABD3000000001 /* ScheduledTestsView.swift in Sources */,
+				FEA6294C2E8AE1020009AF77 /* NetworkInsightsView.swift in Sources */,
+				FEA6294D2E8AE1020009AF77 /* CommunityConsentView.swift in Sources */,
+				0823E0F0280ABC1200000001 /* ConnectedDevice.swift in Sources */,
+				79920D72280ABC1200000001 /* NetworkScannerService.swift in Sources */,
+				A1515357280ABC1200000001 /* ConnectedDevicesView.swift in Sources */,
 				1A001034280ABD4000000001 /* NetworkDiagnosticsService.swift in Sources */,
 				1A001036280ABD5000000001 /* NetworkDiagnosticsView.swift in Sources */,
 			);

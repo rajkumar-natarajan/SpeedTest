@@ -16,9 +16,9 @@ struct HomeView: View {
     @State private var lastTestResult: SpeedTestResult?
     
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                VStack(spacing: 30) {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 20) {
                     // App title and connection status
                     VStack(spacing: 10) {
                         Text("SpeedTest Pro")
@@ -34,9 +34,11 @@ struct HomeView: View {
                                 .foregroundColor(.secondary)
                         }
                     }
-                    .padding(.top, 40)
+                    .padding(.top, 20)
                     
+                    // Add flexible space
                     Spacer()
+                        .frame(minHeight: 20, maxHeight: 60)
                     
                     // Main test button or progress indicator
                     if speedTestViewModel.isTestingInProgress {
@@ -44,10 +46,12 @@ struct HomeView: View {
                         VStack(spacing: 20) {
                             // Animated progress ring
                             ZStack {
+                                // Background circle
                                 Circle()
                                     .stroke(Color.gray.opacity(0.2), lineWidth: 8)
                                     .frame(width: 200, height: 200)
                                 
+                                // Progress circle
                                 Circle()
                                     .trim(from: 0, to: speedTestViewModel.testProgress)
                                     .stroke(
@@ -62,18 +66,31 @@ struct HomeView: View {
                                     .rotationEffect(.degrees(-90))
                                     .animation(.easeInOut, value: speedTestViewModel.testProgress)
                                 
-                                VStack {
+                                // Semi-transparent background for text
+                                Circle()
+                                    .fill(Color(.systemBackground).opacity(0.95))
+                                    .frame(width: 170, height: 170)
+                                
+                                VStack(spacing: 12) {
                                     Text(speedTestViewModel.currentTestPhase.rawValue)
-                                        .font(.headline)
-                                        .foregroundColor(.primary)
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.secondary)
+                                        .multilineTextAlignment(.center)
+                                        .lineLimit(2)
+                                        .fixedSize(horizontal: false, vertical: true)
                                     
                                     if speedTestViewModel.currentSpeed > 0 {
                                         Text(String(format: "%.1f Mbps", speedTestViewModel.currentSpeed))
                                             .font(.title2)
-                                            .fontWeight(.semibold)
+                                            .fontWeight(.bold)
                                             .foregroundColor(.blue)
+                                            .shadow(color: .white, radius: 1)
+                                            .minimumScaleFactor(0.8)
                                     }
                                 }
+                                .padding(.horizontal, 24)
+                                .frame(width: 150, height: 150)
                             }
                             
                             // Cancel button
@@ -81,9 +98,11 @@ struct HomeView: View {
                                 speedTestViewModel.cancelTest()
                             }
                             .foregroundColor(.red)
+                            .padding(.top, 10)
                             
                             // Real-time chart during testing
                             RealTimeChartView(viewModel: speedTestViewModel)
+                                .padding(.top, 20)
                                 .transition(.opacity)
                         }
                         
@@ -173,24 +192,27 @@ struct HomeView: View {
                         }
                     }
                     
+                    // Add bottom padding to account for tab bar
                     Spacer()
+                        .frame(minHeight: 80) // Space for tab bar and safe area
                 }
                 .padding(.horizontal)
+                .frame(minHeight: geometry.size.height - 100) // Account for tab bar
             }
-            .navigationBarHidden(true)
-            .onAppear {
-                loadLastTestResult()
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            loadLastTestResult()
+        }
+        .onChange(of: speedTestViewModel.latestResult) { _, newResult in
+            if let result = newResult {
+                lastTestResult = result
+                showingResults = true
             }
-            .onChange(of: speedTestViewModel.latestResult) { _, newResult in
-                if let result = newResult {
-                    lastTestResult = result
-                    showingResults = true
-                }
-            }
-            .sheet(isPresented: $showingResults) {
-                if let result = lastTestResult {
-                    TestResultsView(result: result, isPresented: $showingResults)
-                }
+        }
+        .sheet(isPresented: $showingResults) {
+            if let result = lastTestResult {
+                TestResultsView(result: result, isPresented: $showingResults)
             }
         }
     }

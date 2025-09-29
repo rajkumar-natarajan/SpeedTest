@@ -9,6 +9,8 @@
 import SwiftUI
 import Network
 import Combine
+import Foundation
+import CoreLocation
 
 /// Test phases during speed test execution
 enum TestPhase: String, CaseIterable, Codable {
@@ -96,6 +98,10 @@ class SpeedTestViewModel: ObservableObject {
     private let networkQueue = DispatchQueue(label: "NetworkMonitor")
     private var cancellables = Set<AnyCancellable>()
     private var testTask: Task<Void, Never>?
+    
+    // AI and Community Services
+    private let analyticsService = NetworkAnalyticsService()
+    private let communityService = CommunityMappingService()
     
     // MARK: - Initialization
     init() {
@@ -197,6 +203,11 @@ class SpeedTestViewModel: ObservableObject {
             TestHistory.shared.addResult(result)
             latestResult = result
             
+            // Generate AI insights and contribute to community (in background)
+            Task {
+                await generateInsightsAndContribute(for: result)
+            }
+            
             // Delay before resetting state
             try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
             resetTestState()
@@ -236,11 +247,29 @@ class SpeedTestViewModel: ObservableObject {
     private var connectionTypeString: String {
         switch connectionType {
         case .wifi:
-            return "Wi-Fi"
+            return "WiFi"
         case .cellular:
             return "Cellular"
         case .unavailable:
-            return "Unavailable"
+            return "Unknown"
         }
+    }
+    
+    /// Generate AI insights and contribute to community after test completion
+    private func generateInsightsAndContribute(for result: SpeedTestResult) async {
+        // TODO: Uncomment when services are added to Xcode project
+        
+        // Generate AI predictions based on updated history
+        let history = TestHistory.shared.getAllResults()
+        await analyticsService.generatePredictions(from: history)
+        analyticsService.detectAnomalies(from: history)
+        
+        // Contribute to community mapping if user has consented
+        if communityService.userConsent {
+            // In a real app, you would get the actual location
+            // For now, we'll pass nil which will skip contribution
+            await communityService.contributeResult(result, location: nil as CLLocation?)
+        }
+        
     }
 }
