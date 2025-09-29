@@ -28,7 +28,7 @@ enum ConnectionType {
 }
 
 /// Connection quality categories based on speed thresholds
-enum ConnectionQuality: String, CaseIterable {
+enum ConnectionQuality: String, CaseIterable, Codable {
     case excellent = "Excellent"
     case good = "Good"
     case fair = "Fair"
@@ -50,7 +50,7 @@ enum ConnectionQuality: String, CaseIterable {
 }
 
 /// Speed test result model
-struct SpeedTestResult: Codable, Identifiable {
+struct SpeedTestResult: Codable, Identifiable, Equatable {
     let id = UUID()
     let timestamp: Date
     let downloadSpeed: Double // Mbps
@@ -71,6 +71,10 @@ struct SpeedTestResult: Codable, Identifiable {
         self.connectionQuality = ConnectionQuality.from(downloadSpeed: downloadSpeed)
         self.connectionType = connectionType
         self.serverLocation = serverLocation
+    }
+    
+    static func == (lhs: SpeedTestResult, rhs: SpeedTestResult) -> Bool {
+        lhs.id == rhs.id
     }
 }
 

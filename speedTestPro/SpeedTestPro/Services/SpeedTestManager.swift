@@ -159,7 +159,7 @@ class SpeedTestManager: NSObject {
             
             let expectedBytes = Int64(httpResponse.expectedContentLength)
             
-            for try await byte in asyncBytes {
+            for try await _ in asyncBytes {
                 if isCancelled { throw SpeedTestError.testCancelled }
                 
                 totalBytes += 1

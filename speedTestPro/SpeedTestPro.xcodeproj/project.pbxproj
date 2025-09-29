@@ -7,80 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D1234567890ABCD /* SpeedTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABCC /* SpeedTestProApp.swift */; };
-		3D1234567890ABCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABCE /* ContentView.swift */; };
-		3D1234567890ABD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABD0 /* Assets.xcassets */; };
-		3D1234567890ABD4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABD3 /* Preview Assets.xcassets */; };
-		3D1234567890ABD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABD5 /* LaunchScreen.storyboard */; };
-		3D1234567890ABD8 /* SpeedTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABD7 /* SpeedTestManager.swift */; };
-		3D1234567890ABDA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABD9 /* HomeView.swift */; };
-		3D1234567890ABDC /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABDB /* TestResultsView.swift */; };
-		3D1234567890ABDE /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABDD /* HistoryView.swift */; };
-		3D1234567890ABE0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABDF /* SettingsView.swift */; };
-		3D1234567890ABE2 /* SpeedTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABE1 /* SpeedTestViewModel.swift */; };
-		3D1234567890ABE4 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABE3 /* NetworkUtils.swift */; };
-		3D1234567890ABE6 /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABE5 /* TestHistory.swift */; };
-		3D1234567890ABE8 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABE7 /* AppSettings.swift */; };
-		3D1234567890ABEA /* SpeedTestProTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABE9 /* SpeedTestProTests.swift */; };
-		3D1234567890ABEC /* SpeedTestProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1234567890ABEB /* SpeedTestProUITests.swift */; };
+		1234567890ABCDE1 /* SpeedTestProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE0 /* SpeedTestProApp.swift */; };
+		1234567890ABCDE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE2 /* ContentView.swift */; };
+		1234567890ABCDE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE4 /* Assets.xcassets */; };
+		1234567890ABCDE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE7 /* Preview Assets.xcassets */; };
+		1234567890ABCDEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE9 /* LaunchScreen.storyboard */; };
+		1234567890ABCDEC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEB /* HomeView.swift */; };
+		1234567890ABCDEE /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDED /* TestResultsView.swift */; };
+		1234567890ABCDF0 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEF /* HistoryView.swift */; };
+		1234567890ABCDF2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF1 /* SettingsView.swift */; };
+		1234567890ABCDF4 /* SpeedTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF3 /* SpeedTestViewModel.swift */; };
+		1234567890ABCDF6 /* SpeedTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF5 /* SpeedTestManager.swift */; };
+		1234567890ABCDF8 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF7 /* NetworkUtils.swift */; };
+		1234567890ABCDFA /* TestHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDF9 /* TestHistory.swift */; };
+		1234567890ABCDFC /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDFB /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3D1234567890ABEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3D1234567890ABC1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3D1234567890ABC8;
-			remoteInfo = SpeedTestPro;
-		};
-		3D1234567890ABF0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3D1234567890ABC1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3D1234567890ABC8;
-			remoteInfo = SpeedTestPro;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		3D1234567890ABC9 /* SpeedTestPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTestPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D1234567890ABCC /* SpeedTestProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProApp.swift; sourceTree = "<group>"; };
-		3D1234567890ABCE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3D1234567890ABD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3D1234567890ABD3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3D1234567890ABD5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3D1234567890ABD7 /* SpeedTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestManager.swift; sourceTree = "<group>"; };
-		3D1234567890ABD9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		3D1234567890ABDB /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
-		3D1234567890ABDD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		3D1234567890ABDF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		3D1234567890ABE1 /* SpeedTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewModel.swift; sourceTree = "<group>"; };
-		3D1234567890ABE3 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
-		3D1234567890ABE5 /* TestHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
-		3D1234567890ABE7 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		3D1234567890ABE9 /* SpeedTestProTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProTests.swift; sourceTree = "<group>"; };
-		3D1234567890ABEB /* SpeedTestProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProUITests.swift; sourceTree = "<group>"; };
-		3D1234567890ABED /* SpeedTestProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedTestProTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D1234567890ABEF /* SpeedTestProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedTestProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D1234567890ABF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1234567890ABCDDD /* SpeedTestPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTestPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1234567890ABCDE0 /* SpeedTestProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestProApp.swift; sourceTree = "<group>"; };
+		1234567890ABCDE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1234567890ABCDE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1234567890ABCDE7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1234567890ABCDE9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1234567890ABCDEB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1234567890ABCDED /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
+		1234567890ABCDEF /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		1234567890ABCDF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1234567890ABCDF3 /* SpeedTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewModel.swift; sourceTree = "<group>"; };
+		1234567890ABCDF5 /* SpeedTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestManager.swift; sourceTree = "<group>"; };
+		1234567890ABCDF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
+		1234567890ABCDF9 /* TestHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHistory.swift; sourceTree = "<group>"; };
+		1234567890ABCDFB /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		1234567890ABCDFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3D1234567890ABC6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABEA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABEC /* Frameworks */ = {
+		1234567890ABCDDA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -90,108 +53,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D1234567890ABC0 = {
+		1234567890ABCDD4 = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABCB /* SpeedTestPro */,
-				3D1234567890ABF3 /* SpeedTestProTests */,
-				3D1234567890ABF4 /* SpeedTestProUITests */,
-				3D1234567890ABCA /* Products */,
+				1234567890ABCDDF /* SpeedTestPro */,
+				1234567890ABCDDE /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3D1234567890ABCA /* Products */ = {
+		1234567890ABCDDE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABC9 /* SpeedTestPro.app */,
-				3D1234567890ABED /* SpeedTestProTests.xctest */,
-				3D1234567890ABEF /* SpeedTestProUITests.xctest */,
+				1234567890ABCDDD /* SpeedTestPro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABCB /* SpeedTestPro */ = {
+		1234567890ABCDDF /* SpeedTestPro */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABF5 /* Views */,
-				3D1234567890ABF6 /* ViewModels */,
-				3D1234567890ABF7 /* Models */,
-				3D1234567890ABF8 /* Services */,
-				3D1234567890ABF9 /* Utils */,
-				3D1234567890ABCC /* SpeedTestProApp.swift */,
-				3D1234567890ABD0 /* Assets.xcassets */,
-				3D1234567890ABD5 /* LaunchScreen.storyboard */,
-				3D1234567890ABF2 /* Info.plist */,
-				3D1234567890ABD2 /* Preview Content */,
+				1234567890ABCE00 /* Views */,
+				1234567890ABCE01 /* ViewModels */,
+				1234567890ABCE02 /* Models */,
+				1234567890ABCE03 /* Services */,
+				1234567890ABCE04 /* Utils */,
+				1234567890ABCDE0 /* SpeedTestProApp.swift */,
+				1234567890ABCDE4 /* Assets.xcassets */,
+				1234567890ABCDE9 /* LaunchScreen.storyboard */,
+				1234567890ABCDFD /* Info.plist */,
+				1234567890ABCDE6 /* Preview Content */,
 			);
 			path = SpeedTestPro;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABD2 /* Preview Content */ = {
+		1234567890ABCDE6 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABD3 /* Preview Assets.xcassets */,
+				1234567890ABCDE7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		3D1234567890ABF3 /* SpeedTestProTests */ = {
+		1234567890ABCE00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABE9 /* SpeedTestProTests.swift */,
-			);
-			path = SpeedTestProTests;
-			sourceTree = "<group>";
-		};
-		3D1234567890ABF4 /* SpeedTestProUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3D1234567890ABEB /* SpeedTestProUITests.swift */,
-			);
-			path = SpeedTestProUITests;
-			sourceTree = "<group>";
-		};
-		3D1234567890ABF5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3D1234567890ABCE /* ContentView.swift */,
-				3D1234567890ABD9 /* HomeView.swift */,
-				3D1234567890ABDB /* TestResultsView.swift */,
-				3D1234567890ABDD /* HistoryView.swift */,
-				3D1234567890ABDF /* SettingsView.swift */,
+				1234567890ABCDE2 /* ContentView.swift */,
+				1234567890ABCDEB /* HomeView.swift */,
+				1234567890ABCDED /* TestResultsView.swift */,
+				1234567890ABCDEF /* HistoryView.swift */,
+				1234567890ABCDF1 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABF6 /* ViewModels */ = {
+		1234567890ABCE01 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABE1 /* SpeedTestViewModel.swift */,
+				1234567890ABCDF3 /* SpeedTestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABF7 /* Models */ = {
+		1234567890ABCE02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABE5 /* TestHistory.swift */,
-				3D1234567890ABE7 /* AppSettings.swift */,
+				1234567890ABCDF9 /* TestHistory.swift */,
+				1234567890ABCDFB /* AppSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABF8 /* Services */ = {
+		1234567890ABCE03 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABD7 /* SpeedTestManager.swift */,
+				1234567890ABCDF5 /* SpeedTestManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3D1234567890ABF9 /* Utils */ = {
+		1234567890ABCE04 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3D1234567890ABE3 /* NetworkUtils.swift */,
+				1234567890ABCDF7 /* NetworkUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -199,13 +142,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3D1234567890ABC8 /* SpeedTestPro */ = {
+		1234567890ABCDDC /* SpeedTestPro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D1234567890ABF0 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */;
+			buildConfigurationList = 1234567890ABCE05 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */;
 			buildPhases = (
-				3D1234567890ABC5 /* Sources */,
-				3D1234567890ABC6 /* Frameworks */,
-				3D1234567890ABC7 /* Resources */,
+				1234567890ABCDD9 /* Sources */,
+				1234567890ABCDDA /* Frameworks */,
+				1234567890ABCDDB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -213,168 +156,78 @@
 			);
 			name = SpeedTestPro;
 			productName = SpeedTestPro;
-			productReference = 3D1234567890ABC9 /* SpeedTestPro.app */;
+			productReference = 1234567890ABCDDD /* SpeedTestPro.app */;
 			productType = "com.apple.product-type.application";
-		};
-		3D1234567890ABEC /* SpeedTestProTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3D1234567890ABF1 /* Build configuration list for PBXNativeTarget "SpeedTestProTests" */;
-			buildPhases = (
-				3D1234567890ABE9 /* Sources */,
-				3D1234567890ABEA /* Frameworks */,
-				3D1234567890ABEB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3D1234567890ABEF /* PBXTargetDependency */,
-			);
-			name = SpeedTestProTests;
-			productName = SpeedTestProTests;
-			productReference = 3D1234567890ABED /* SpeedTestProTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		3D1234567890ABEE /* SpeedTestProUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3D1234567890ABF2 /* Build configuration list for PBXNativeTarget "SpeedTestProUITests" */;
-			buildPhases = (
-				3D1234567890ABEB /* Sources */,
-				3D1234567890ABEC /* Frameworks */,
-				3D1234567890ABED /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3D1234567890ABF1 /* PBXTargetDependency */,
-			);
-			name = SpeedTestProUITests;
-			productName = SpeedTestProUITests;
-			productReference = 3D1234567890ABEF /* SpeedTestProUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3D1234567890ABC1 /* Project object */ = {
+		1234567890ABCDD5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					3D1234567890ABC8 = {
+					1234567890ABCDDC = {
 						CreatedOnToolsVersion = 15.0;
-					};
-					3D1234567890ABEC = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 3D1234567890ABC8;
-					};
-					3D1234567890ABEE = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 3D1234567890ABC8;
 					};
 				};
 			};
-			buildConfigurationList = 3D1234567890ABC4 /* Build configuration list for PBXProject "SpeedTestPro" */;
+			buildConfigurationList = 1234567890ABCDD8 /* Build configuration list for PBXProject "SpeedTestPro" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
-				es,
 			);
-			mainGroup = 3D1234567890ABC0;
-			productRefGroup = 3D1234567890ABCA /* Products */;
+			mainGroup = 1234567890ABCDD4;
+			productRefGroup = 1234567890ABCDDE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3D1234567890ABC8 /* SpeedTestPro */,
-				3D1234567890ABEC /* SpeedTestProTests */,
-				3D1234567890ABEE /* SpeedTestProUITests */,
+				1234567890ABCDDC /* SpeedTestPro */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3D1234567890ABC7 /* Resources */ = {
+		1234567890ABCDDB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D1234567890ABD4 /* Preview Assets.xcassets in Resources */,
-				3D1234567890ABD1 /* Assets.xcassets in Resources */,
-				3D1234567890ABD6 /* LaunchScreen.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABEB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABED /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				1234567890ABCDE8 /* Preview Assets.xcassets in Resources */,
+				1234567890ABCDE5 /* Assets.xcassets in Resources */,
+				1234567890ABCDEA /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3D1234567890ABC5 /* Sources */ = {
+		1234567890ABCDD9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D1234567890ABCF /* ContentView.swift in Sources */,
-				3D1234567890ABE2 /* SpeedTestViewModel.swift in Sources */,
-				3D1234567890ABD8 /* SpeedTestManager.swift in Sources */,
-				3D1234567890ABE4 /* NetworkUtils.swift in Sources */,
-				3D1234567890ABDA /* HomeView.swift in Sources */,
-				3D1234567890ABDC /* TestResultsView.swift in Sources */,
-				3D1234567890ABDE /* HistoryView.swift in Sources */,
-				3D1234567890ABE0 /* SettingsView.swift in Sources */,
-				3D1234567890ABE6 /* TestHistory.swift in Sources */,
-				3D1234567890ABE8 /* AppSettings.swift in Sources */,
-				3D1234567890ABCD /* SpeedTestProApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABE9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D1234567890ABEA /* SpeedTestProTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D1234567890ABEB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D1234567890ABEC /* SpeedTestProUITests.swift in Sources */,
+				1234567890ABCDE3 /* ContentView.swift in Sources */,
+				1234567890ABCDF4 /* SpeedTestViewModel.swift in Sources */,
+				1234567890ABCDF6 /* SpeedTestManager.swift in Sources */,
+				1234567890ABCDF8 /* NetworkUtils.swift in Sources */,
+				1234567890ABCDEC /* HomeView.swift in Sources */,
+				1234567890ABCDEE /* TestResultsView.swift in Sources */,
+				1234567890ABCDF0 /* HistoryView.swift in Sources */,
+				1234567890ABCDF2 /* SettingsView.swift in Sources */,
+				1234567890ABCDFA /* TestHistory.swift in Sources */,
+				1234567890ABCDFC /* AppSettings.swift in Sources */,
+				1234567890ABCDE1 /* SpeedTestProApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		3D1234567890ABEF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3D1234567890ABC8 /* SpeedTestPro */;
-			targetProxy = 3D1234567890ABEE /* PBXContainerItemProxy */;
-		};
-		3D1234567890ABF1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3D1234567890ABC8 /* SpeedTestPro */;
-			targetProxy = 3D1234567890ABF0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		3D1234567890ABF0 /* Debug */ = {
+		1234567890ABCE06 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -437,7 +290,7 @@
 			};
 			name = Debug;
 		};
-		3D1234567890ABF1 /* Release */ = {
+		1234567890ABCE07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -493,7 +346,7 @@
 			};
 			name = Release;
 		};
-		3D1234567890ABF2 /* Debug */ = {
+		1234567890ABCE08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -527,7 +380,7 @@
 			};
 			name = Debug;
 		};
-		3D1234567890ABF3 /* Release */ = {
+		1234567890ABCE09 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -558,121 +411,31 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		3D1234567890ABF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app.SpeedTestProTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTestPro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedTestPro";
-			};
-			name = Debug;
-		};
-		3D1234567890ABF5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app.SpeedTestProTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTestPro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedTestPro";
-			};
-			name = Release;
-		};
-		3D1234567890ABF6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app.SpeedTestProUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SpeedTestPro;
-			};
-			name = Debug;
-		};
-		3D1234567890ABF7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.speedtestpro.app.SpeedTestProUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SpeedTestPro;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D1234567890ABC4 /* Build configuration list for PBXProject "SpeedTestPro" */ = {
+		1234567890ABCDD8 /* Build configuration list for PBXProject "SpeedTestPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D1234567890ABF0 /* Debug */,
-				3D1234567890ABF1 /* Release */,
+				1234567890ABCE06 /* Debug */,
+				1234567890ABCE07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D1234567890ABF0 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */ = {
+		1234567890ABCE05 /* Build configuration list for PBXNativeTarget "SpeedTestPro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D1234567890ABF2 /* Debug */,
-				3D1234567890ABF3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3D1234567890ABF1 /* Build configuration list for PBXNativeTarget "SpeedTestProTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3D1234567890ABF4 /* Debug */,
-				3D1234567890ABF5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3D1234567890ABF2 /* Build configuration list for PBXNativeTarget "SpeedTestProUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3D1234567890ABF6 /* Debug */,
-				3D1234567890ABF7 /* Release */,
+				1234567890ABCE08 /* Debug */,
+				1234567890ABCE09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3D1234567890ABC1 /* Project object */;
+	rootObject = 1234567890ABCDD5 /* Project object */;
 }
