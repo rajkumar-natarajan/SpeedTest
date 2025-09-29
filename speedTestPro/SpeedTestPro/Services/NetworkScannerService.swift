@@ -24,8 +24,8 @@ class NetworkScannerService: ObservableObject {
     private let cacheKey = "LastNetworkScan"
     
     // Network scanning parameters
-    private let scanTimeout: TimeInterval = 2.0
-    private let maxConcurrentScans = 50
+    private let scanTimeout: TimeInterval = 1.0 // Reduced from 2.0
+    private let maxConcurrentScans = 20 // Reduced from 50
     
     init() {
         loadCachedScanResult()
@@ -35,7 +35,10 @@ class NetworkScannerService: ObservableObject {
     
     /// Scan the local network for connected devices
     func scanNetwork() async {
-        guard !isScanning else { return }
+        guard !isScanning else { 
+            logger.info("Scan already in progress, ignoring request")
+            return 
+        }
         
         isScanning = true
         scanProgress = 0.0
@@ -168,36 +171,46 @@ class NetworkScannerService: ObservableObject {
     private func pingDevice(at ipAddress: String) async -> TimeInterval? {
         return await withCheckedContinuation { continuation in
             let startTime = Date()
+            var hasResumed = false
+            let lock = NSLock()
             
-            // Create a simple TCP connection test
-            let host = NWEndpoint.Host(ipAddress)
-            guard let port = NWEndpoint.Port(rawValue: 80) else {
-                continuation.resume(returning: nil)
-                return
-            }
-            let endpoint = NWEndpoint.hostPort(host: host, port: port)
-            
-            let connection = NWConnection(to: endpoint, using: .tcp)
-            connection.stateUpdateHandler = { state in
-                switch state {
-                case .ready:
-                    let responseTime = Date().timeIntervalSince(startTime)
-                    connection.cancel()
-                    continuation.resume(returning: responseTime)
-                case .failed, .cancelled:
-                    connection.cancel()
-                    continuation.resume(returning: nil)
-                default:
-                    break
+            func resumeOnce(with value: TimeInterval?) {
+                lock.lock()
+                defer { lock.unlock() }
+                
+                if !hasResumed {
+                    hasResumed = true
+                    continuation.resume(returning: value)
                 }
             }
             
-            connection.start(queue: .global())
+            // Use a simpler approach with URLSession for better compatibility
+            guard let url = URL(string: "http://\(ipAddress)") else {
+                resumeOnce(with: nil)
+                return
+            }
             
-            // Timeout after scanTimeout seconds
-            DispatchQueue.global().asyncAfter(deadline: .now() + scanTimeout) {
-                connection.cancel()
-                continuation.resume(returning: nil)
+            var request = URLRequest(url: url)
+            request.timeoutInterval = scanTimeout
+            request.httpMethod = "HEAD"
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                let responseTime = Date().timeIntervalSince(startTime)
+                
+                // If we get any response (even error responses), the device is reachable
+                if response != nil || (error as? NSError)?.code != NSURLErrorCannotConnectToHost {
+                    resumeOnce(with: responseTime)
+                } else {
+                    resumeOnce(with: nil)
+                }
+            }
+            
+            task.resume()
+            
+            // Timeout fallback
+            DispatchQueue.global().asyncAfter(deadline: .now() + scanTimeout + 0.1) {
+                task.cancel()
+                resumeOnce(with: nil)
             }
         }
     }
